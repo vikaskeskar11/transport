@@ -1,0 +1,73 @@
+<script type=text/javascript>
+function validateForm() {
+    var x = document.forms["myForm"]["lrno"].value;
+    if (x == null || x == "") {
+        alert("Name must be filled out");
+        return false;
+    }
+	var y = document.forms["myForm"]["lrdate"].value;
+    if (y == null || y == "") {
+        alert("Name must be filled out");
+        return false;
+    }
+
+var z = document.forms["myForm"]["lrvehical"].value;
+    if (z == null || z == "") {
+        alert("Name must be filled out");
+        return false;
+    }
+
+var a = document.forms["myForm"]["lrfrom"].value;
+    if (a == null || a == "") {
+        alert("Name must be filled out");
+        return false;
+    }
+
+	var b = document.forms["myForm"]["lrto"].value;
+    if (b == null || b == "") {
+        alert("Name must be filled out");
+        return false;
+    }
+
+	var c = document.forms["myForm"]["lrdistance"].value;
+    if (c == null || c == "") {
+        alert("Name must be filled out");
+        return false;
+    }
+
+	var d = document.forms["myForm"]["lrdaysreq"].value;
+    if (d == null || d == "") {
+        alert("Name must be filled out");
+        return false;
+    }
+
+	var e = document.forms["myForm"]["consigner"].value;
+    if (e == null || e == "") {
+        alert("Name must be filled out");
+        return false;
+    }
+
+	var f = document.forms["myForm"]["consignee"].value;
+    if (f == null || f == "") {
+        alert("Name must be filled out");
+        return false;
+    }
+
+	var g = document.forms["myForm"]["packages"].value;
+    if (g == null || g == "") {
+        alert("Name must be filled out");
+        return false;
+    }
+	var h = document.forms["myForm"]["method"].value;
+    if (h == null || h == "") {
+        alert("Name must be filled out");
+        return false;
+    }
+	var i = document.forms["myForm"]["wt"].value;
+    if (i == null || i == "") {
+        alert("Name must be filled out");
+        return false;
+    }
+	
+}
+</script>

@@ -1,0 +1,47 @@
+$result1 = mysqli_query($conn," select * from lorryreceipt where lno='$name' & status='$status'")or die (mysqli_error($conn));  
+if($result1)
+{
+	$message2="already added";
+	echo json_encode($message2);
+}	
+	else{
+	
+	
+	
+	
+	'<input id="button" onClick="deleterow1(f);" type="button" value="click here"/>' 
+	
+	
+	
+	
+	
+	
+	
+	
+	 var table1 = document.getElementById('lrtable').getElementsByTagName('tr');
+		
+								//var m=document.getElementById('lrtable');
+								//alert(table1.length);
+								
+		if(table1.length==1)
+								{
+									tablerow();
+							
+								}
+     
+	  						 
+								
+											else{
+												
+												
+												tablecheck();
+											}
+										
+	   
+								
+								
+						
+                      											
+	 
+	 } 
+   
