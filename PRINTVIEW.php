@@ -1,4 +1,7 @@
-<?php include 'session_manager.php';?>
+<?php include 'session_manager.php';
+	  include 'config.php';	
+	?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -121,18 +124,38 @@
 						 
 						    </tr>
 						    </thead>
-				-->		    <tbody>
-						    <tr>
-						    <td>LR 1</td>
-						    <td>12/2/2013</td>
+				-->		    
+				
+				<tbody>
+				
+<?php 
+$invoice_no = $_GET['ino'];
+
+ $result  =  mysqli_query($conn,"select lno,lconname,ldate,lveh_no,lto,lfrom,lrtotal from lorryreceipt where ino='$invoice_no'");
+ if(mysqli_num_rows($result)>0)
+ { $grandTotal = 0;
+	 while($row = mysqli_fetch_assoc($result))
+		{	
+			echo 			'<tr>
+						    <td>LR NO:'.$row['lno'].'</td>
+						    <td>'.$row['ldate'].'</td>
+							<td>'.$row['lfrom'].'</td>
+							<td>'.$row['lto'].'</td>
 						    <td>1234</td>
-						    <td>MH 12 Cm 1323</td>
-						    <td>Gaurav Subhash Nikam</td>
+						    <td>'.$row['lveh_no'].'</td>
+						    <td>'.$row['lconname'].'</td>
 						    <td>100</td>
 						    <td>50</td>
-						    <td>1011.74</td>
-						    </tr>
-						    <tr>
+						    <td>'.$row['lrtotal'].'</td>
+						    </tr>';
+							$grandTotal+=$row['lrtotal'];
+		}
+ }else
+ {
+	 echo "<script>alert('NO data found');</script>";
+ }
+?>
+						    <!--<tr>
 						    
 						    
 						    <td>LR 2</td>
@@ -156,11 +179,13 @@
 						    <td>1011.74</td>
 						    </tr>
 						    <tr>
-						    
+						    -->
 						     <tr  style="height:300px;background-color:#ffffff;">
 						    <td></td>
 						    <td></td>
 						    <td></td>
+						    <td></td>
+							<td></td>
 						    <td></td>
 						    <td></td>
 						    <td></td>
@@ -176,8 +201,10 @@
 						    <td></td>
 						    <td></td>
 						    <td></td>
+						    <td></td>
+						    <td></td>
 						    <td>TOTAL RS.</td>
-						    <td>1245778</td>
+						    <td><?php echo $grandTotal?></td>
 						    </tr>
 						    </tbody>
 

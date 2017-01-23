@@ -370,7 +370,7 @@ $message1="NOT Upadated Successfully";
 								<button type="submit" class="btn btn-primary" style="width:100px;">Update</button>
 								
 								
-								<button type="button" onClick="openInNewTab('PRINTVIEW.php');" class="btn btn-primary" style="width:100px;">Print</button>
+								<button type="button" onClick="openInNewTab();" class="btn btn-primary" style="width:100px;">Print</button>
 								<br><br>
 								</div>	
 					
@@ -423,16 +423,10 @@ $message1="NOT Upadated Successfully";
 		})
 	
 	
-	function openInNewTab(url)
+	function openInNewTab()
 	{
-		var x=document.getElementById("lrno").value;
-		
-		var ino={
-			inno:x
-		};
-		ino=JSON.stringify(ino);
-		ino=btoa(ino);
-		localStorage.setItem('_ino',ino);
+		var x=document.getElementById("ino").value;
+		url = 'PRINTVIEW.php?ino='+x;
 		var win=window.open(url,'_blank');
 		win.focus();
 		

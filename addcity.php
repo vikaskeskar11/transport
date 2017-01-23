@@ -101,11 +101,11 @@ function validateForm() {
 									echo '<input required type="text" list="statelist" placeholder="Enter State Name" name="state" id="name" class="form-control">';
 									echo '<datalist id = "statelist">';
 									//echo '<option>Please Select Person</option>';
+							
 									while($row = mysqli_fetch_assoc($result))
 									{	
 										echo '<option>'.$row['city_state'].'</option>';
 									}
-							
 									echo '</datalist>';
 										}
 										
