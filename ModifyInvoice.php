@@ -121,13 +121,8 @@ $message1="NOT Upadated Successfully";
 									
 									<div class="col-md-6">
 									
-										<input readonly list="consigneelist" id="party1"  name="party1"  type="text" placeholder="Consignee"  class="form-control">
-									<datalist id = "consigneelist">
-										<option id="party" placeholder=" "name="Consigner"></option>
-										
-										</datalist>
-										
-									</select><br>
+										<input  id="party1"  name="party1"  type="text" placeholder="Consignee"  class="form-control">
+									<br>
 									</div>
 										
 						</div>
@@ -154,7 +149,7 @@ $message1="NOT Upadated Successfully";
 						        <th data-field="name" >Billing</th>
 						        <th data-field="price" >Charges</th>
 						        <th data-field="price" >LR Total</th>
-								  <th data-field="price" >Consigner</th>
+								  <th data-field="price" style="visibility:hidden" >Consigner</th>
 						    </tr>
 						    </thead>
 						    <tbody>
@@ -315,7 +310,7 @@ $message1="NOT Upadated Successfully";
 									</div>
 									<label class="col-md-1 control-label" for="name">Taxable</label>
 									<div class="col-md-1">
-									<input readonly="true" id="tax"  name="ad"  type="number" value="0"  class="form-control">
+									<input id="tax"  name="ad"  type="number" value="0"  class="form-control">
 									</div>
 										
 						</div>
@@ -323,17 +318,17 @@ $message1="NOT Upadated Successfully";
 					<div class="form-group col-lg-12">
 									<label class="col-md-1 control-label" for="name">Service Tax </label>
 									<div class="col-md-2">
-									<input  id="stax"  readonly="true" name="tax"  type="number" value="0"  class="form-control">
+									<input  id="stax"   name="tax"  type="number" value="0"  class="form-control">
 									</div>
 									
 									<label class="col-md-1 control-label" for="name">Edu. Cess</label>
 									<div class="col-md-2">
-									<input  id="etax"  readonly="true" name="etax"  type="number"   value="0" class="form-control">
+									<input  id="etax"   name="etax"  type="number"   value="0" class="form-control">
 									</div>
 									
 									<label class="col-md-1 control-label" for="name">Hsc Cess </label>
 									<div class="col-md-2">
-									<input  id="htax" readonly="true" name="htax"  type="number"   value="0" class="form-control">
+									<input  id="htax"  name="htax"  type="number"   value="0" class="form-control">
 									</div>
 									
 									<label class="col-md-1 control-label" for="name">Total Srv Tax</label>
@@ -572,7 +567,7 @@ function createtable()
 								var cell5=row.insertCell(4);
 								var cell6=row.insertCell(5);
 								var cell7=row.insertCell(6);  
-								
+								    cell7.style.visibility="hidden";
 								var d=data[a];
 		 
 		    
@@ -584,8 +579,9 @@ function createtable()
 								cell4.innerHTML=d[24];
 								cell5.innerHTML=d[32];
 								cell6.innerHTML=d[33];
-								cell7.innerHTML=d[9];
-								if(a==0)
+//								cell7.innerHTML=d[9];
+								cell7.style.visibility="hidden";						
+							if(a==0)
 								{
 									document.getElementById("party1").value=d[8];
 									document.getElementById("lrno").value=d[1];
@@ -905,7 +901,8 @@ function myfunction()
     );
 	
 }
-						}						
+document.getElementById('addbtn').style.visibility = "hidden";
+}						
 								
 								
 	function tablerow()
@@ -952,6 +949,7 @@ function tablecheck()
 	{
 		
 		
+		/*
 		var name=document.getElementById("lrno").value;
 //alert(name);
 	if(name=="")
@@ -1003,7 +1001,8 @@ function tablecheck()
 	}	
 	
 	
-	
+		}*/
+		
 	}
 	function lrcheck()
 {

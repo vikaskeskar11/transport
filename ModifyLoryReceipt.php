@@ -33,7 +33,7 @@ if($_POST)
 {
 	extract($_POST);
 
-	$query = "update lorryreceipt set ldate='$lrdate',lveh_no='$vehicle',lfrom='$lrfrom',lto='$lrto',ldist='$lrdistance',ldaysreq='$lrdaysreq',lconname='$consigner',lconiname='$consignee',lpackage='$packages',lmethods='$methods',lweight='$wt',ldesc='$desc',linvoice1='$inv1',linvoice2='$inv2',linvoice3='$inv3',linvoice4='$inv4',lqty='$qty',lidate='$date' where lno='$lrno'";
+	$query = "update lorryreceipt set ldate='$lrdate',lveh_no='$vehicle',lfrom='$lrfrom',lto='$lrto',ldist='$lrdistance',ldaysreq='$lrdaysreq',lconname='$consigner',lconiname='$consignee',lpackage='$packages',lmethods='$methods',lweight='$wt',ldesc='$desc',linvoice1='$inv1',linvoice2='$inv2',linvoice3='$inv3',linvoice4='$inv4',lqty='$qty',lidate='$date',weight_method='$weight_method_input' where lno='$lrno'";
  $result=mysqli_query($conn, $query) or die (mysqli_error($conn));
 
  if(mysqli_affected_rows($conn))
@@ -83,7 +83,7 @@ $message1="Please Update any Field ";
 									
 									<label class="col-md-1 control-label" for="name">LR ID. </label>
 									<div class="col-md-3">
-									<input  id="lrid"  name="lrid"  type="number"   class="form-control">
+									<input  id="lrid" readonly name="lrid"  type="number"   class="form-control">
 									</div>
 									
 									
@@ -247,11 +247,8 @@ $message1="Please Update any Field ";
 									
 									<label class="col-md-1 control-label" for="name">Method </label>
 									<div class="col-md-2">
-									<select id="method" class="form-control" name="methods">
-										<option>Nos.</option>
-										<option>Kg</option>
-										<option>Quintle</option>
-									</select></div>
+									<input id="method" class="form-control"  name="methods">
+										</div>
 									
 									<label class="col-md-2 control-label" for="name" align="center">Weight </label>
 									<div class="col-md-2">
@@ -259,11 +256,7 @@ $message1="Please Update any Field ";
 									<br>
 									</div>
 									<div class="col-md-2">
-									<select class="form-control" name="local_district">
-										<option>M.Tons</option>
-										<option>Kg</option>
-										<option>Quintle</option>
-									</select><br>
+									<input class="form-control" type="text" id="weight_method_input" name="weight_method_input"><br>
 									</div>
 										
 						</div>
@@ -330,10 +323,7 @@ $message1="Please Update any Field ";
 					
 					<div class="form-group">
 					<br><br>
-								<button type="submit" class="btn btn-primary" style="width:100px;">Ok</button>
-								
-								
-								<button type="submit" class="btn btn-primary" style="width:100px;">Cancle</button>
+								<button type="submit" class="btn btn-primary" style="width:100px;">Modify</button>
 								<br><br>
 								</div>	
 					
@@ -390,7 +380,7 @@ $message1="Please Update any Field ";
 			   function getDataOfPerson() 
   {	
   var name=document.getElementById("lrno").value;
-alert(name);
+//alert(name);
 	if(name=="")
 	{
 		window.alert("Enter LR NO First");
@@ -402,11 +392,11 @@ alert(name);
       success: function(data)          //on recieve of reply
       {
 		  
-       
-      //$('#output').html("<b>id: </b>"+id+"<b> name: </b>"+vname);//Set output element html
-	   window.alert(data);
-	  document.getElementById('lrid').value=data[0];
-	  
+       if(data == null)
+	   {
+		   alert("LR is Billed");
+	   }else
+       {document.getElementById('lrid').value=data[0];
 	   document.getElementById('lrdate').value=data[2];
 	   document.getElementById('vehicle').value=data[3];
 	   document.getElementById('lrfrom').value=data[4];
@@ -418,14 +408,15 @@ alert(name);
 	   document.getElementById('packages').value=data[10];
 	   document.getElementById('method').value=data[11];
 	   document.getElementById('wt').value=data[12];
-	    document.getElementById('desc').value=data[13];
+	   document.getElementById('desc').value=data[13];
 	   document.getElementById('inv1').value=data[14];
 	   document.getElementById('inv2').value=data[15];
 	   document.getElementById('inv3').value=data[16];
 	   document.getElementById('inv4').value=data[17];
 	   document.getElementById('qty').value=data[18];
 	   document.getElementById('date').value=data[19];
-	  
+	   document.getElementById('weight_method_input').value=data[34];
+	   }
 	   
 
 	  } 

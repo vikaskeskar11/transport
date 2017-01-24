@@ -36,7 +36,7 @@
 			
 			
 			<div class="form-group col-md-1">
-								<button type="button" onclick="xls();" class="btn btn-primary" style="width:180px;">Get All Data Of Vehicles</button>
+								<button type="button" onclick="xls();" class="btn btn-primary" style="width:180px;">Get All Data Of Drivers</button>
 								<br><br>	
 						</div>
 			
@@ -375,7 +375,7 @@
   
   function xls()
   {
-	  window.location.assign("xls_vehicle.php");
+	  window.location.assign("xls_driver.php");
 	  
   }
   </script>	

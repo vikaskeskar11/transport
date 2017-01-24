@@ -130,8 +130,10 @@
 						        <th data-field="id" data-align="right" >Vehicale</th>
 						        <th data-field="name" >Billing</th>
 						        <th data-field="price" >Charges</th>
-						        <th data-field="price" >LR Total</th>
-								  <th data-field="price" >Party</th>
+									<th data-field="price" >LR Total</th>
+									  <th data-field="price" >Consigner</th>
+									  <th data-field="price" >Consignee</th>
+									  
 								  <th data-field="id" data-align="right" >Status</th>
 						    </tr>
 						    </thead>
@@ -295,11 +297,11 @@ function tablerow()
       dataType: 'json',                //data format      
       success: function(data)          //on recieve of reply
       {
-		  alert(data);
+		 // alert(data);
 		  var table=document.getElementById("lrtable");
 		  
 		  var x = document.getElementById("lrtable").rows.length;
-		  alert(x);
+		//  alert(x);
 		  var i;
 		  if(x>1)
 		  {
@@ -322,7 +324,7 @@ var row=table.insertRow(-1);
 								var cell6=row.insertCell(5);
 								var cell7=row.insertCell(6);  
 								var cell8=row.insertCell(7); 
-								
+								var cell9=row.insertCell(8); 
 								var d=data[a];
 		 
 		    
@@ -334,8 +336,9 @@ var row=table.insertRow(-1);
 								cell4.innerHTML=d[24];
 								cell5.innerHTML=d[32];
 								cell6.innerHTML=d[33];
-								cell7.innerHTML=d[9];
-								cell8.innerHTML=d[20];
+								cell7.innerHTML=d[8];
+								cell8.innerHTML=d[9];
+								cell9.innerHTML=d[20];
 	  }}
  
     });	
@@ -375,6 +378,7 @@ var row=table.insertRow(-1);
 								var cell6=row.insertCell(5);
 								var cell7=row.insertCell(6);  
 								var cell8=row.insertCell(7); 
+								var cell9=row.insertCell(8); 
 								
 								var d=data[a];
 		 
@@ -387,8 +391,10 @@ var row=table.insertRow(-1);
 								cell4.innerHTML=d[24];
 								cell5.innerHTML=d[32];
 								cell6.innerHTML=d[33];
-								cell7.innerHTML=d[9];
-								cell8.innerHTML=d[20];
+								cell7.innerHTML=d[8];
+								cell8.innerHTML=d[9];
+								cell9.innerHTML=d[20];
+	  
 	  }
 	  }
     });
@@ -431,6 +437,7 @@ var row=table.insertRow(-1);
 								var cell6=row.insertCell(5);
 								var cell7=row.insertCell(6);  
 								var cell8=row.insertCell(7); 
+								var cell9=row.insertCell(8); 
 								
 								var d=data[a];
 		 
@@ -443,8 +450,10 @@ var row=table.insertRow(-1);
 								cell4.innerHTML=d[24];
 								cell5.innerHTML=d[32];
 								cell6.innerHTML=d[33];
-								cell7.innerHTML=d[9];
-								cell8.innerHTML=d[20];
+								cell7.innerHTML=d[8];
+								cell8.innerHTML=d[9];
+								cell9.innerHTML=d[20];
+	  
 	  }}
  
     });

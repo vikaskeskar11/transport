@@ -64,7 +64,7 @@
 			</div>
 			
 			<div class="form-group col-md-1">
-								<button type="button" onclick="xls();" class="btn btn-primary" style="width:180px;">Get All Data Of Drivers</button>
+								<button type="button" onclick="xls();" class="btn btn-primary" style="width:180px;">Get All Data Of Vehicles</button>
 								<br><br>	
 						</div>
 			
@@ -292,7 +292,7 @@
 	   document.getElementById('model').value=model;
 	   document.getElementById('company').value=company;
 	   document.getElementById('rtoamt').value=data[4];
-	   document.getElementById('rtoamt').value=data[5];
+	   document.getElementById('rtodate').value=data[5];
 	  } 
     });
  
@@ -309,3 +309,4 @@
 </body>
 
 </html>
+ 

@@ -14,10 +14,6 @@
 <!--Icons-->
 <script src="js/lumino.glyphs.js"></script>
 
-<!--[if lt IE 9]>
-<script src="js/html5shiv.js"></script>
-<script src="js/respond.min.js"></script>
-<![endif]-->
 
 </head>
 
@@ -96,7 +92,7 @@ $message1="NOT Inserted Successfully";
 									
 									 
 							?>
-									<input  id="iid"  name="iid"  type="number"  value="<?php echo $lid+1?>" class="form-control">
+									<input  id="iid" readonly  name="iid"  type="number"  value="<?php echo $lid+1?>" class="form-control">
 									</div>
 									
 									<label class="col-md-2 control-label" for="name">Invoice NO. </label>
@@ -124,7 +120,7 @@ $message1="NOT Inserted Successfully";
 									</div>
 									
 									
-									<label class="col-md-1 control-label" id="party"for="name" align="center">Party</label>
+									<label class="col-md-1 control-label" for="name" align="center">Party</label>
 									
 									<div class="col-md-4">
 									<input  list="consigneelist" id="party1"  name="party1"  type="text" placeholder="Consignee"  class="form-control">
@@ -317,11 +313,11 @@ $message1="NOT Inserted Successfully";
 									</div>
 									
 									<div class="col-md-1">
-									<input  id="choice" name="choice"  type="checkbox"  onchange="shows();" class="form-control">
+									<!--<input  id="choice" name="choice"  type="checkbox"  onchange="shows();" class="form-control">-->
 									</div>
 									<label class="col-md-1 control-label" for="name">Taxable</label>
 									<div class="col-md-1">
-									<input  id="tax"  disabled="true" name="tax"  value="0" type="number" value="0"  class="form-control">
+									<input  id="tax"    name="tax"  value="0" type="number" value="0"  class="form-control">
 									</div>
 										
 						</div>
@@ -329,22 +325,22 @@ $message1="NOT Inserted Successfully";
 					<div class="form-group col-lg-12">
 									<label class="col-md-1 control-label" for="name">Service Tax </label>
 									<div class="col-md-2">
-									<input  id="stax" readonly="true"  name="stax"  value="0" type="number"   class="form-control">
+									<input  id="stax"    name="stax"  value="0" type="number"   class="form-control">
 									</div>
 									
 									<label class="col-md-1 control-label" for="name">Edu. Cess</label>
 									<div class="col-md-2">
-									<input  id="etax" readonly="true"  value="0" name="etax"  type="number"   class="form-control">
+									<input  id="etax"    value="0" name="etax"  type="number"   class="form-control">
 									</div>
 									
 									<label class="col-md-1 control-label" for="name">Hsc Cess </label>
 									<div class="col-md-2">
-									<input  id="htax" readonly="true"  value="0" name="htax"  type="number"   class="form-control">
+									<input  id="htax"    value="0" name="htax"  type="number"   class="form-control">
 									</div>
 									
 									<label class="col-md-1 control-label" for="name">Total Srv Tax</label>
 									<div class="col-md-2">
-									<input  id="ttax" readonly="true" value="0" name="ttax"  type="number" onfocus="totaltax();"  class="form-control">
+									<input  id="ttax" readonly  value="0" name="ttax"  type="number" onfocus="totaltax();"  class="form-control">
 									</div>
 										
 						</div>			
@@ -448,7 +444,6 @@ function getDataOfPerson()
   //clearall1();
   
   var name=document.getElementById("lrno").value;
-alert(name);
 	if(name=="")
 	{
 		window.alert("Enter LR NO First");
@@ -459,27 +454,37 @@ alert(name);
       dataType: 'json',                //data format      
       success: function(data)          //on recieve of reply
       {
-		  
-       
-      //$('#output').html("<b>id: </b>"+id+"<b> name: </b>"+vname);//Set output element html
 	   if(data==null)
 	   {
 		   alert("Billed LR")
 	   }
 	   else{
+	var table=document.getElementById("lrtable").rows;
+	if(table.length==1)
+	{
+		document.getElementById('lrid').value=data[1];
 	  
+	document.getElementById('consigner').value=data[8];document.getElementById('consignee').value=data[9];	   
+	   document.getElementById('wt').value=data[12];
+	    document.getElementById('cwt').value=data[12];
+		}else{
+	var party=document.getElementById("party1").value;  
+
+		if(party==data[9] || party==data[9])
+{
 	document.getElementById('lrid').value=data[1];
-	  
-	
-	  
-	   document.getElementById('consigner').value=data[8];
-	   document.getElementById('consignee').value=data[9];
-	  
+	document.getElementById('party1').value=data[8];
+	//document.getElementById('lrid').value=data[1];
 	   
 	   document.getElementById('wt').value=data[12];
 	    document.getElementById('cwt').value=data[12];
 	  
-	   
+	
+}	
+else{
+			alert("Parties must be same");
+			}   
+	   }
 	   }
 	  } 
     });
@@ -673,14 +678,6 @@ clearall();
 											break loop1;
 											
 											}
-											
-											else{
-												alert("Parties must be same");
-												break loop1;
-											}
-									
-									
-									
 									}
 									
 									
@@ -775,28 +772,7 @@ function lrcheck()
 									}
 									return true;
 }
-function shows()
-{
-	
 
-	if(document.getElementById("choice").checked==true)
-	{
-		document.getElementById("tax").readonly=false;
-		document.getElementById("stax").readonly=false;
-		document.getElementById("etax").readonly=false;
-		document.getElementById("htax").readonly=false;
-		document.getElementById("ttax").readonly=false;
-	}
-	else{
-		
-		document.getElementById("tax").readonly=true;
-		document.getElementById("stax").readonly=true;
-		document.getElementById("etax").readonly=true;
-		document.getElementById("htax").readonly=true;
-		document.getElementById("ttax").readonly=true;
-		
-	}
-}
 function nettotal()
 {
 	var a=document.getElementById("itotal").value;

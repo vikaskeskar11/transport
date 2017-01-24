@@ -77,8 +77,10 @@
 									<?php
 									$query = "select vid from vehicle";
 									$result = mysqli_query($conn,$query);
-									$row = mysqli_fetch_assoc($result);
-									$num = $row['vid'];
+									while($row = mysqli_fetch_assoc($result)){
+									$num = $row['vid'];	
+									}
+									
 									echo '<input readonly required type="number" name="vehicleid" id="vehicleid" value='.($num+1).' class="form-control">';
 								?>
 									<br><br>
@@ -104,7 +106,7 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message">Registration No.</label>
 									<div class="col-md-4">
-									<input required type="text"  name="regno" id="companyid"  class="form-control">
+									<input required placeholder="Registration Number" type="text"  name="regno" id="companyid"  class="form-control">
 									<br><br>
 									</div>	
 								</div>
@@ -121,13 +123,48 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message">Company</label>
 									<div class="col-md-4">
-									<input required type="text"  name="company" id="purchasedate" class="form-control">
+
+								<?php
+									if($conn){
+										$query = 'select DISTINCT company from vehicle';
+										$result = mysqli_query($conn,$query);
+										if(mysqli_num_rows($result)>0)
+										{
+									echo '<input  list="vehicle_comp_list" id="vehicle_company"  name="vehicle_company"  type="text" placeholder="Company"  class="form-control">';
+									echo '<datalist id = "vehicle_comp_list">';
+									while($row = mysqli_fetch_assoc($result))
+									{	
+										echo '<option>'.$row['company'].'</option>';
+									}
+							
+									echo '</datalist>';
+										}
+									} 	
+									?>
+								
 									
 									</div>	
 								
 									<label class="col-md-2 control-label" for="message">Model</label>
 									<div class="col-md-4">
-									<input required type="text"  name="model" id="fitness" class="form-control">
+									<?php
+									if($conn){
+										$query = 'select DISTINCT model from vehicle';
+										$result = mysqli_query($conn,$query);
+										if(mysqli_num_rows($result)>0)
+										{
+									echo '<input  list="vehicle_model_list" id="model_list"  name="model_list"  type="text" placeholder="Model"  class="form-control">';
+									echo '<datalist id = "vehicle_model_list">';
+									while($row = mysqli_fetch_assoc($result))
+									{	
+										echo '<option>'.$row['model'].'</option>';
+									}
+							
+									echo '</datalist>';
+										}
+									} 	
+									?>
+									
 									<br><br>
 									</div>	
 								</div>

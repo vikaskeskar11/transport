@@ -97,14 +97,21 @@ function validateForm() {
 								<div class="form-group">
 									<label id="cname" class="col-md-2 control-label" for="message">Company Id</label>
 									<div class="col-md-4">
-									<?php
-									$query = "select cid from company";
-									$result = mysqli_query($conn,$query);
-									$row = mysqli_fetch_assoc($result);
-									$num = $row['cid'];
-									echo '<input readonly required type="number"  name="companyid" id="companyid" value='.($num+1).' class="form-control">';
-								?>
-									<br><br>
+									<?php 
+									$query="SELECT cid FROM company";
+									$result=mysqli_query($conn, $query); 
+									 $num_rows = mysqli_num_rows($result);
+									$lid;
+									while ($row = mysqli_fetch_assoc($result))
+									{
+										$lid=$row["cid"];
+										
+									}
+									echo '<input readonly required type="number"  name="companyid" id="companyid" value='.($lid+1).' class="form-control">';
+		 
+							?>
+	
+								<br><br>
 									</div>	
 								</div>
 								
@@ -160,9 +167,9 @@ function validateForm() {
 										$result = mysqli_query($conn,$query);
 								if(mysqli_num_rows($result)>0)
 										{
-									echo '<label class="col-md-2 control-label" for="message">Consigner Name</label>';
+									echo '<label class="col-md-2 control-label" for="message">Key Person Name</label>';
 									echo '<div class="col-md-10">';
-									echo '<input required  list = "personlist" type="text" placeholder="Enter Consigner Name" name="conname" id="conname" class="form-control">';
+									echo '<input required  list = "personlist" type="text" placeholder="Key Person Name" name="conname" id="conname" class="form-control">';
 									echo '<br>
 									</div>';
 									

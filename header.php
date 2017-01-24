@@ -252,7 +252,7 @@
 				</ul>
 			</li>
 			
-			
+			<!--
 			<li class="parent">
 				<a href="#sub-item-8" data-toggle="collapse">
 					<span data-toggle="collapse" href="#sub-item-8"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg></span>Driver Calculation </a>
@@ -272,9 +272,10 @@
 				</ul>
 			</li>
 			
+			
 					<li ><a href="HireRegisterEntry.php"><svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"></use></svg>New Hire Registry Entry</a></li>
 	
-			
+			-->
 			
 			<li role="presentation" class="divider"></li>
 			<li><a href="logout.php"><svg class="glyph stroked male-user"><use xlink:href="#stroked-male-user"></use></svg> Log Out</a></li>

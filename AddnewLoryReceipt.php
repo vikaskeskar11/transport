@@ -34,7 +34,7 @@ $status=False;
 $invid=0;
 $rate=0;$pers=0;$subtotal=0;$loading=0;$unload=0;$stat=0;$tail=0;$detention=0;$delivery=0;$other=0;$totalcharge=0;$lrtotal=0;
 	$query = "INSERT INTO lorryreceipt  VALUES ('$lrid','$lrno','$lrdate','$vehicle','$lrfrom','$lrto','$lrdistance','$lrdaysreq','$consigner','$consignee','$packages','$method','$wt','$desc','$inv1','$inv2','$inv3','$inv4','$qty','$date','$status','$invid',
-'$rate','$pers','$subtotal','$loading','$unload','$stat','$tail','$detention','$delivery','$other','$totalcharge','$lrtotal')";
+'$rate','$pers','$subtotal','$loading','$unload','$stat','$tail','$detention','$delivery','$other','$totalcharge','$lrtotal','$weight_method_input')";
  $check = mysqli_query($conn,"SELECT * from lorryreceipt where lno='$lrno'");
  if(mysqli_num_rows($check)==0)
  {
@@ -255,7 +255,7 @@ $message1="NOT Inserted Successfully";
 									<div class="col-md-9">
 									<?php
 									if($conn){
-										$query = 'select DISTINCT consignname,consingername from company';
+										$query = 'select DISTINCT cname from company';
 										$result = mysqli_query($conn,$query);
 										if(mysqli_num_rows($result)>0)
 										{
@@ -265,8 +265,8 @@ $message1="NOT Inserted Successfully";
 									while($row = mysqli_fetch_assoc($result))
 									{	
 										
-										echo '<option>'.$row['consingername'].'</option>';
-										echo '<option>'.$row['consignname'].'</option>';
+										echo '<option>'.$row['cname'].'</option>';
+										//echo '<option>'.$row['consignname'].'</option>';
 									}
 							
 									echo '</datalist>';
@@ -300,7 +300,7 @@ $message1="NOT Inserted Successfully";
 									<div class="col-md-9">
 									<?php
 									if($conn){
-										$query = 'select DISTINCT consignname,consingername from company';
+										$query = 'select DISTINCT cname from company';
 										$result = mysqli_query($conn,$query);
 										if(mysqli_num_rows($result)>0)
 										{
@@ -309,8 +309,8 @@ $message1="NOT Inserted Successfully";
 									//echo '<option>Please Select Person</option>';
 									while($row = mysqli_fetch_assoc($result))
 									{	
-										echo '<option>'.$row['consingername'].'</option>';
-										echo '<option>'.$row['consignname'].'</option>';
+										echo '<option>'.$row['cname'].'</option>';
+									//	echo '<option>'.$row['cname'].'</option>';
 									}
 							
 									echo '</datalist>';
@@ -362,6 +362,7 @@ $message1="NOT Inserted Successfully";
 										<option>Nos.</option>
 										<option>Kg</option>
 										<option>Quintle</option>
+										<option>Box</option>
 									</select></div>
 									
 									<label class="col-md-2 control-label" for="name" align="center">Weight </label>
@@ -370,11 +371,12 @@ $message1="NOT Inserted Successfully";
 									<br>
 									</div>
 									<div class="col-md-2">
-									<select class="form-control" name="local_district">
+									<select class="form-control" name="weight_method_input">
 										<option>M.Tons</option>
 										<option>Kg</option>
 										<option>Quintle</option>
-									</select><br>
+										<option>FTL</option>
+										</select><br>
 									</div>
 										
 						</div>
@@ -382,7 +384,25 @@ $message1="NOT Inserted Successfully";
 						<div class="form-group">
 									<label class="col-md-2 control-label" for="name">Descr. </label>
 									<div class="col-md-10">
-									<input  id="Description"  name="desc"  type="text" placeholder="Descr."  class="form-control">
+
+								<?php
+									if($conn){
+										$query = 'select DISTINCT ldesc from lorryreceipt';
+										$result = mysqli_query($conn,$query);
+										if(mysqli_num_rows($result)>0)
+										{
+									echo '<input  list="desc_list" id="Description"  name="desc"  type="text" placeholder="Descr."  class="form-control">';
+									echo '<datalist id = "desc_list">';
+									while($row = mysqli_fetch_assoc($result))
+									{	
+										echo '<option>'.$row['ldesc'].'</option>';
+									}
+							
+									echo '</datalist>';
+										}
+									} 	
+									?>
+									
 									</div>
 									
 										
@@ -442,9 +462,6 @@ $message1="NOT Inserted Successfully";
 					<div class="form-group">
 					<br><br>
 								<button type="submit" class="btn btn-primary" style="width:100px;">Ok</button>
-								
-								
-								<button type="button" onClick="location.href='AddnewLoryReceipt.php'" class="btn btn-primary" style="width:100px;">Cancle</button>
 								<br><br>
 								</div>	
 					

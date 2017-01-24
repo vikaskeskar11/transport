@@ -36,6 +36,10 @@
 			
 			
 			
+			<div class="form-group col-md-1">
+								<button type="button" onclick="xls();" class="btn btn-primary" style="width:200px;">Get All Data Of Companies</button>
+								<br><br>	
+						</div>
 			<div class="col-lg-12" style="padding:20px;">
 		
 				
@@ -69,7 +73,7 @@
 			<!--</div>-->
 							
 							<div class="form-group col-md-1">
-								<button type="button" onClick="getDataOfCompany();" class="btn btn-secondary">Get Data</button>
+								<button type="button" onClick="getDataOfCompany();" class="btn btn-primary">Get Data</button>
 								<br><br>	
 									
 									</div>
@@ -107,7 +111,7 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message">Type</label>
 									<div class="col-md-2">
-									<input type="text" id="cr"  class="form-control">
+									<input type="text" id="cr" readonly class="form-control">
 									</div>	
 									
 									
@@ -120,7 +124,7 @@
 									</div>	
 									
 									<div class="col-md-2">
-									<input type="text" value="Rs"  class="form-control">
+									<input type="text" value="Rs" readonly class="form-control">
 									<br><br>
 									
 									</div>			
@@ -173,7 +177,7 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message">State</label>
 									<div class="col-md-4">
-									<input type="text" id="state" class="form-control">
+									<input type="text" readonly id="state" class="form-control">
 <br/>
 									</div>
 									
@@ -181,7 +185,7 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message">District</label>
 									<div class="col-md-4">
-									<input type="text" id="distric" class="form-control">
+									<input type="text" readonly id="distric" class="form-control">
 <br/>
 									</div>	
 								</div>
@@ -373,6 +377,11 @@ function getDataOfCompany()
  
 }
   	
+  }
+  function xls()
+  {
+	  window.location.assign("xls_company.php");
+	  
   }
   </script>
 </body>

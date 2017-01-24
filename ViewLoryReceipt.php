@@ -55,14 +55,14 @@
 									
 									<label class="col-md-1 control-label" for="name">LR ID. </label>
 									<div class="col-md-3">
-									<input  id="lrid"  name="lrid"  type="number"   class="form-control">
+									<input readonly id="lrid"  name="lrid"  type="number"   class="form-control">
 									</div>
 									
 									
 									
 									<label class="col-md-2 control-label" for="name" align="center">LR DATE </label>
 									<div class="col-md-2">
-									<input  id="lrdate"  name="lrdate"  type="date"   class="form-control">
+									<input readonly id="lrdate"  name="lrdate"  type="date"   class="form-control">
 									<br>
 									</div>
 										
@@ -72,11 +72,11 @@
 						<div class="form-group">
 									<label class="col-md-1 control-label" for="name">Vehicle </label>
 									<div class="col-md-9">
-									<input  id="vehicle"  name="vehicle"  type="text" placeholder="Vehical"  class="form-control">
+									<input readonly id="vehicle"  name="vehicle"  type="text" placeholder="Vehical"  class="form-control">
 									</div>
 									
 									<div class="form-group col-md-2">
-								<button type="submit" class="btn btn-primary">New</button>
+								<button type="button" style="visibility:hidden" class="btn btn-primary">New</button>
 								<br>
 								</div>	
 						</div>
@@ -91,16 +91,7 @@
 					<h4 class="page-header" style="color:#1F618D  ;">Locations</h4>
 					</div>
 			
-					
-				
-								
-								
-								
-								<div class="col-md-12">
-				
-								
-								
-								
+							<div class="col-md-12">
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message">From</label>
 									<div class="col-md-4">
@@ -110,7 +101,7 @@
 										$result = mysqli_query($conn,$query);
 										if(mysqli_num_rows($result)>0)
 										{
-									echo '<input  list="citylist" id="lrfrom"  name="lrfrom"  type="text" placeholder="From"  class="form-control">';
+									echo '<input readonly list="citylist" id="lrfrom"  name="lrfrom"  type="text" placeholder="From"  class="form-control">';
 									echo '<datalist id = "citylist">';
 									//echo '<option>Please Select Person</option>';
 									while($row = mysqli_fetch_assoc($result))
@@ -135,7 +126,7 @@
 										$result = mysqli_query($conn,$query);
 										if(mysqli_num_rows($result)>0)
 										{
-									echo '<input  list="citylist" id="lrto"  name="lrto"  type="text" placeholder="To"  class="form-control">';
+									echo '<input readonly list="citylist" id="lrto"  name="lrto"  type="text" placeholder="To"  class="form-control">';
 									echo '<datalist id = "citylist">';
 									//echo '<option>Please Select Person</option>';
 									while($row = mysqli_fetch_assoc($result))
@@ -155,7 +146,7 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message">Distance</label>
 									<div class="col-md-4">
-									<input required type="number" placeholder="Distance in Kilo Meters" name="lrdistance" id="lrdistance" class="form-control">
+									<input readonly type="number" placeholder="Distance in Kilo Meters" name="lrdistance" id="lrdistance" class="form-control">
 									<br>
 									</div>
 									
@@ -163,7 +154,7 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message">Days Required</label>
 									<div class="col-md-4">
-									<input required type="number" placeholder="days Rquired" name="lrdaysreq" id="daysreq" class="form-control">
+									<input readonly type="number" placeholder="days Rquired" name="lrdaysreq" id="daysreq" class="form-control">
 									<br>
 									</div>	
 								</div>
@@ -179,63 +170,48 @@
 					<div class="form-group">
 									<label class="col-md-1 control-label" for="name">Consigner </label>
 									<div class="col-md-9">
-									<input  id="consigner"  name="consigner"  type="text" placeholder="consigner"  class="form-control">
+									<input readonly id="consigner"  name="consigner"  type="text" placeholder="consigner"  class="form-control">
 									</div>
-									
 									<div class="form-group col-md-2">
-								<button type="submit" class="btn btn-primary">New</button>
+								<button class="btn btn-primary" type = "button" style="visibility:hidden" >New</button>
 								<br>
+								</div>
+								
 								</div>	
 						</div>
 						
 						<div class="form-group">
 									<label class="col-md-1 control-label" for="name">Consignee </label>
 									<div class="col-md-9">
-									<input  id="consignee"  name="consignee"  type="text" placeholder="consignee"  class="form-control">
+									<input readonly id="consignee"  name="consignee"  type="text" placeholder="consignee"  class="form-control">
 									</div>
-									
-									<div class="form-group col-md-2">
-								<button type="submit" class="btn btn-primary">New</button>
 								<br>
 								</div>	
 						</div>
-					
-							   
-					
-							
-					
-					
 					
 					<div class="col-lg-12">
 					<h4 class="page-header" style="color:#1F618D  ;">Packaging</h4>
 					</div>
 			
-					
 					<div class="form-group">
 									<label class="col-md-1 control-label" for="name">Packages </label>
 									<div class="col-md-2">
-									<input  id="packages"  name="packages"  type="text" placeholder="packages"  class="form-control">
+									<input readonly id="packages"  name="packages"  type="text" placeholder="packages"  class="form-control">
 									</div>
 									
 									<label class="col-md-1 control-label" for="name">Method </label>
 									<div class="col-md-2">
-									<select id="method" class="form-control" name="methods">
-										<option>Nos.</option>
-										<option>Kg</option>
-										<option>Quintle</option>
-									</select></div>
+									<input readonly id="method" class="form-control" name="methods">
+									</div>
 									
 									<label class="col-md-2 control-label" for="name" align="center">Weight </label>
 									<div class="col-md-2">
-									<input  id="wt"  name="wt" placeholder="Weight" type="number"   class="form-control">
+									<input  id="wt" readonly name="wt" placeholder="Weight" type="number"   class="form-control">
 									<br>
 									</div>
 									<div class="col-md-2">
-									<select class="form-control" name="local_district">
-										<option>M.Tons</option>
-										<option>Kg</option>
-										<option>Quintle</option>
-									</select><br>
+									<input id="weight_method_input" readonly class="form-control" id="weight_method_input">
+										<br>
 									</div>
 										
 						</div>
@@ -243,7 +219,7 @@
 						<div class="form-group">
 									<label class="col-md-2 control-label" for="name">Descr. </label>
 									<div class="col-md-10">
-									<input  id="desc"  name="desc"  type="text" placeholder="Descr."  class="form-control">
+									<input  id="desc"  name="desc" readonly type="text" placeholder="Descr."  class="form-control">
 									</div>
 									
 										
@@ -262,16 +238,16 @@
 					<div class="form-group">
 									<label class="col-md-2 control-label" for="name">Invoices </label>
 									<div class="col-md-3">
-									<input  id="inv1"  name="inv1"  type="text" placeholder="Invoice 1"  class="form-control">
+									<input  id="inv1"  name="inv1" readonly  type="text" placeholder="Invoice 1"  class="form-control">
 									</div>
 									<div class="col-md-2">
-									<input  id="inv2"  name="inv2"  type="text" placeholder="Invoice 2"  class="form-control">
+									<input  id="inv2"  name="inv2" readonly type="text" placeholder="Invoice 2"  class="form-control">
 									</div>
 									<div class="col-md-3">
-									<input  id="inv3"  name="inv3"  type="text" placeholder="Invoice 3"  class="form-control">
+									<input  id="inv3"  name="inv3" readonly type="text" placeholder="Invoice 3"  class="form-control">
 									</div>
 									<div class="col-md-2">
-									<input  id="inv4"  name="inv4"  type="text" placeholder="Invoice 4"  class="form-control">
+									<input  id="inv4"  name="inv4" readonly type="text" placeholder="Invoice 4"  class="form-control">
 									<br>
 									</div>
 									
@@ -284,46 +260,25 @@
 					<div class="form-group">
 									<label class="col-md-1 control-label" for="name">Quantity </label>
 									<div class="col-md-3">
-									<input  id="qty"  name="qty"  type="number" placeholder="Quantity"  class="form-control">
+									<input  id="qty"  name="qty" readonly type="number" placeholder="Quantity"  class="form-control">
 									</div>
 									
-									<label class="col-md-1 control-label" for="name"> </label>
+									<label class="col-md-1 control-label" for="name"> Status </label>
 									<div class="col-md-2">
-									</div>
+									<input readonly id="status"  name="status"  type="text"  class="form-control">
+									</div>	
 									
-									<label class="col-md-2 control-label" for="name" align="center"> DATE </label>
-									<div class="col-md-3">
-									<input  id="date"   name="date"  type="date"   class="form-control">
+									<label class="col-md-1 control-label" for="name" align="center"> DATE </label>
+									<div class="col-md-2">
+									<input  id="date"   name="date"  readonly type="date"   class="form-control">
 									<br><br><br>
 									</div>
-										
+			
 						</div>		
-					<div class="form-group">
-					<br><br>
-								<button type="submit" class="btn btn-primary" style="width:100px;">Ok</button>
-								
-								
-								<button type="submit" class="btn btn-primary" style="width:100px;">Cancle</button>
-								<br><br>
-								</div>	
-					
-							   
-					
-					
-					
-					
-					
-					
-				
-				
-							
-		
+					</div>	
 			</div>	
-			
-			
-			
-			
-			
+														
+						
 			
 		</div><!--/.row-->
 		
@@ -358,21 +313,21 @@
  function getDataOfPerson() 
   {	
   var name=document.getElementById("lrno").value;
-alert(name);
+//alert(name);
 	if(name=="")
 	{
 		window.alert("Enter LR NO First");
 	}else{
 	$.ajax({                                      
-      url: 'vehicle_support_file.php',                  //the script to call to get data          
+      url: 'vehicle_support_file2.php',                  //the script to call to get data          
       data: "lrno="+name,                        //you can insert url argumnets here to pass to api.php for example "id=5&parent=6"
       dataType: 'json',                //data format      
       success: function(data)          //on recieve of reply
       {
 		  
-       
-      //$('#output').html("<b>id: </b>"+id+"<b> name: </b>"+vname);//Set output element html
-	   window.alert(data);
+       if(data== null){
+		   alert("LR is not present");
+	   }else{
 	  document.getElementById('lrid').value=data[0];
 	  
 	   document.getElementById('lrdate').value=data[2];
@@ -393,8 +348,17 @@ alert(name);
 	   document.getElementById('inv4').value=data[17];
 	   document.getElementById('qty').value=data[18];
 	   document.getElementById('date').value=data[19];
-	  
-	   
+	   document.getElementById('weight_method_input').value=data[34];
+	  if(data[20]==0)
+	  {
+		  document.getElementById("status").value='Unbilled LR';
+	  }
+	  else{
+		  
+		  		  document.getElementById("status").value='Billed LR';
+
+	  }
+	   }
 
 	  } 
     });

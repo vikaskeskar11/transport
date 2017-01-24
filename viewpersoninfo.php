@@ -38,10 +38,11 @@
 			</div>
 			
 			
-			<div class="form-group col-md-1">
-								<button type="button" onclick="xls();"class="btn btn-primary" style="width:180px;">Get All Data Of person</button>
+			<div class="form-group col-md-2">
+			
+			<button type="button" onclick="xls();"class="btn btn-primary" style="width:180px;">Get All Data Of person</button>
 								<br><br>	
-						</div>
+			</div>
 			<div class="col-lg-12" style="padding:20px;">
 		
 				
@@ -77,7 +78,7 @@
 										<!--</div>-->
 							
 							<div class="form-group col-md-1">
-								<button type="button" onClick="getDataOfPerson();" class="btn btn-secondary">Get Data</button>
+								<button type="button" onClick="getDataOfPerson();" class="btn btn-primary">Get Data</button>
 								<br><br>	
 						</div>
 						

@@ -35,7 +35,7 @@
 	//extract($_POST); //extract the date 
 	if($conn)	//database connection			
 	{	//print_r($_POST);
-		$query ="UPDATE vehicle SET model='$model',company='$company' WHERE regno='$vehicle'";
+		$query ="UPDATE vehicle SET model='$model',company='$company',rtoamt='$tax1',rtoexpdate='$tax' WHERE regno='$vehicle'";
 		$result = mysqli_query($conn,$query) or die (mysqli_error($conn));
 		
 		
@@ -100,7 +100,7 @@
 								</div>
 									<label class="col-md-2 control-label" for="message" align="center">Vehicle Id</label>
 									<div class="col-md-2">
-									<input required type="number" name="vehicleid" id="regid" class="form-control">
+									<input required readonly type="number" name="vehicleid" id="regid" class="form-control">
 									<br><br>
 									</div>	
 				</div>
@@ -289,7 +289,7 @@
 	   document.getElementById('model').value=model;
 	   document.getElementById('company').value=company;
 	   document.getElementById('rtoamt').value=data[4];
-	   document.getElementById('rtoamt').value=data[5];
+	   document.getElementById('rtodate').value=data[5];
 	   
 	  
 	  } 

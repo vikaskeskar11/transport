@@ -176,14 +176,55 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message" align="center">From</label>
 									<div class="col-md-4">
-									<input required type="text" placeholder="From" name="dfrom" id="city" class="form-control">
+									<?php
+									if($conn){
+										$query = 'select city_name from cities';
+										$result = mysqli_query($conn,$query);
+										if(mysqli_num_rows($result)>0)
+										{
+									echo '<input  list="citylist" id="city"  name="dfrom"  type="text" placeholder="From"  class="form-control">';
+									echo '<datalist id = "citylist">';
+									//echo '<option>Please Select Person</option>';
+									while($row = mysqli_fetch_assoc($result))
+									{	
+										echo '<option>'.$row['city_name'].'</option>';
+									}
+							
+									echo '</datalist>';
+										}
+										
+									}
+									?>
+
+									
+									
 									<br><br>
 									</div>
 									</div>
 									<div class="form-group">
 									<label class="col-md-2 control-label" for="message" align="center">To</label>
 									<div class="col-md-4">
-									<input required type="text" placeholder="To" name="dto" id="tocity" class="form-control">
+										<?php
+									if($conn){
+										$query = 'select city_name from cities';
+										$result = mysqli_query($conn,$query);
+										if(mysqli_num_rows($result)>0)
+										{
+									echo '<input  list="citylist" id="tocity"  name="dto"  type="text" placeholder="From"  class="form-control">';
+									echo '<datalist id = "citylist">';
+									//echo '<option>Please Select Person</option>';
+									while($row = mysqli_fetch_assoc($result))
+									{	
+										echo '<option>'.$row['city_name'].'</option>';
+									}
+							
+									echo '</datalist>';
+										}
+										
+									}
+									?>
+									
+									
 									<br><br>
 									</div>
 									</div>

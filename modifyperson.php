@@ -497,7 +497,7 @@ if(isset($_POST['form_submit'])) //check if there is data in the post method or 
       success: function(data)          //on recieve of reply
       { 	
       //$('#output').html("<b>id: </b>"+id+"<b> name: </b>"+vname);//Set output element html
-		window.alert(data[0]);
+		//window.alert(data[0]);
 		document.getElementById('person_id').value = data[0];
 	   document.getElementById('name').value=data[1];
 	   document.getElementById('permenant_address').value=data[2];

@@ -48,7 +48,7 @@
 		}else
 		{
 			echo"<script type=\"text/javascript\">".
-            "alert('Error in Adding Driver.Please Try again.');".
+            "alert('Error in Adding Driver. License No already Present.');".
             "</script>";
 		}
 		
@@ -111,7 +111,7 @@
 				<div class="form-group">
 									<label class="col-md-2 control-label" for="message">Address</label>
 									<div class="col-md-10">
-										<textarea required class="form-control" id="local_address" name="local_address" placeholder="Local Address" rows="3"></textarea>
+										<textarea readonly required class="form-control" id="local_address" name="local_address" placeholder="Local Address" rows="3"></textarea>
 									<br>
 									</div>
 									
@@ -131,7 +131,7 @@
 										$result = mysqli_query($conn,$query);
 										if(mysqli_num_rows($result)>0)
 										{
-									echo '<input required type="text" list = "citylist" placeholder="City" name="local_city" id="local_city" class="form-control">';
+									echo '<input readonly required type="text" list = "citylist" placeholder="City" name="local_city" id="local_city" class="form-control">';
 									echo '<datalist id = "citylist">';
 									//echo '<option>Please Select Person</option>';
 									while($row = mysqli_fetch_assoc($result))
@@ -151,7 +151,7 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message">Pin Code</label>
 									<div class="col-md-4">
-									<input required type="text"  placeholder="Pin Code" name="local_pincode" id="local_pincode" class="form-control">
+									<input required readonly type="text"  placeholder="Pin Code" name="local_pincode" id="local_pincode" class="form-control">
 									<br><br>
 									</div>	
 								</div>
@@ -166,7 +166,7 @@
 										$result = mysqli_query($conn,$query);
 										if(mysqli_num_rows($result)>0)
 										{
-									echo '<input id="local_state" list="statelist" placeholder="State" class="form-control" name="local_state">';
+									echo '<input id="local_state" readonly list="statelist" placeholder="State" class="form-control" name="local_state">';
 									echo '<datalist id = "statelist">';
 									//echo '<option>Please Select Person</option>';
 									while($row = mysqli_fetch_assoc($result))
@@ -186,7 +186,7 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message">District</label>
 									<div class="col-md-4">
-									<input id="local_district" type="text" class="form-control" placeholder="District"  name="local_district">
+									<input readonly id="local_district" type="text" class="form-control" placeholder="District"  name="local_district">
 									<br><br>
 									</div>	
 								</div>
@@ -204,7 +204,7 @@
 						<div class="form-group">
 									<label class="col-md-3 control-label" for="name">Lic. No.</label>
 									<div class="col-md-9">
-									<input  id="licno"  name="licno"  type="text"  class="form-control" placeholder="License Number">
+									<input required id="licno"  name="licno"  type="text"  class="form-control" placeholder="License Number">
 									</div>
 						</div>
 					</div>		   
@@ -213,7 +213,7 @@
 						<div class="form-group">
 									<label class="col-md-3 control-label" for="name">Exp. Date</label>
 									<div class="col-md-9">
-									<input id="exp_date"  name="exp_date"  type="date"  class="form-control">
+									<input required id="exp_date"  name="exp_date"  type="date"  class="form-control">
 									</div>
 						</div>
 					</div>			

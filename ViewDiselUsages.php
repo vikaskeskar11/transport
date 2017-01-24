@@ -43,7 +43,7 @@
 									<input  id="slipno"  name="slipno"  type="number" placeholder="Slip Number"  class="form-control">
 									</div>									
 									<div class="form-group col-md-1">
-										<button type="button" onclick="getDataDisel();" class="btn btn-primary">Modify</button>
+										<button type="button" onclick="getDataDisel();" class="btn btn-primary">View</button>
 										<br>
 									</div>	
 								</div>
@@ -64,7 +64,7 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message">Slip Number</label>
 									<div class="col-md-4">
-										<input required type="number" placeholder="Slip Number" name="dslip" id="dslip" class="form-control">
+										<input readonly type="number" placeholder="Slip Number" name="dslip" id="dslip" class="form-control">
 								
 									</div>	
 									
@@ -72,7 +72,7 @@
 									
 									<label class="col-md-2 control-label" for="message">Slip Date</label>
 									<div class="col-md-4">
-									<input required type="date"  name="slipdate" id="slipdate" class="form-control">
+									<input readonly type="date"  name="slipdate" id="slipdate" class="form-control">
 									<br><br>
 									</div>	
 									
@@ -85,18 +85,18 @@
 							
 							
 								<div class="form-group">
-									<label class="col-md-1 control-label" for="name">Vehicale </label>
+									<label class="col-md-1 control-label" for="name">Vehicle </label>
 									<div class="col-md-9">
 										<?php	if($conn){
-										$query = 'select vehicalno from vehical';
-										$result = mysqli_query($conn,$query);
+										$query = 'select regno from vehicle';
+										$result = mysqli_query($conn,$query) or die(mysqli_error($conn));
 										if(mysqli_num_rows($result)>0)
 										{
-									echo '<input  list="vehicale_list" id="dvehical"  name="dvehical"  type="text" placeholder="Vehical"  class="form-control">';
+									echo '<input readonly list="vehicale_list" id="dvehical"  name="dvehical"  type="text" placeholder="Vehical"  class="form-control">';
 									echo '<datalist id="vehicale_list">';
 									while($row = mysqli_fetch_assoc($result))
 									{
-										echo "<option>".$row['vehicalno']."</option>";
+										echo "<option>".$row['regno']."</option>";
 									}
 									echo '</datalist>';
 										}
@@ -105,7 +105,7 @@
 									</div>
 									
 									<div class="form-group col-md-2">
-										<button type="button" class="btn btn-primary">New</button>
+										<button type="button"  style="visibility:hidden"  class="btn btn-primary">New</button>
 										<br>
 									</div>	
 								</div>
@@ -118,7 +118,7 @@
 										$result = mysqli_query($conn,$query);
 										if(mysqli_num_rows($result)>0)
 										{
-									echo '<input  list = "driver_list" id="ddriver"  name="ddriver"  type="text" placeholder="Driver"  class="form-control">';
+									echo '<input readonly list = "driver_list" id="ddriver"  name="ddriver"  type="text" placeholder="Driver"  class="form-control">';
 									echo '<datalist id="driver_list">';
 									while($row = mysqli_fetch_assoc($result))
 									{
@@ -131,7 +131,7 @@
 									</div>
 									
 									<div class="form-group col-md-2">
-										<button type="button" class="btn btn-primary">New</button>
+										<button type="button" style="visibility:hidden"  class="btn btn-primary">New</button>
 										<br>
 									</div>	
 								</div>
@@ -139,7 +139,7 @@
 								<div class="form-group">
 									<label class="col-md-1 control-label" for="name">Pump </label>
 									<div class="col-md-9">
-								<input  id="dpump" list="pump_list" name="dpump"  type="text" placeholder="Pump"  class="form-control">
+								<input readonly id="dpump" list="pump_list" name="dpump"  type="text" placeholder="Pump"  class="form-control">
 									<datalist id="pump_list">
 									<option>Pump 1 </option>
 									<option>Pump 2 </option>
@@ -149,7 +149,7 @@
 									</div>
 									
 									<div class="form-group col-md-2">
-										<button type="button" class="btn btn-primary">New</button>
+										<button type="button" style="visibility:hidden"  class="btn btn-primary">New</button>
 										<br>
 									</div>	
 								</div>
@@ -167,21 +167,21 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message" align="center">From</label>
 									<div class="col-md-4">
-									<input required type="text" placeholder="From" name="dfrom" id="dfrom" class="form-control">
+									<input readonly type="text" placeholder="From" name="dfrom" id="dfrom" class="form-control">
 									<br><br>
 									</div>
 								</div>	
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message" align="center">To</label>
 									<div class="col-md-4">
-									<input required type="text" placeholder="To" name="dto" id="dto" class="form-control">
+									<input readonly type="text" placeholder="To" name="dto" id="dto" class="form-control">
 									<br><br>
 									</div>
 								</div>	
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message" align="center">Quantity Ordered</label>
 									<div class="col-md-4">
-									<input required type="number" placeholder="Quantity Ordered" name="dqunity_ordered" id="dqunity_ordered" class="form-control">
+									<input readonly type="number" placeholder="Quantity Ordered" name="dqunity_ordered" id="dqunity_ordered" class="form-control">
 									<br><br>
 									</div>	
 								</div>
@@ -192,7 +192,7 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message" align="center">Quantity Actual</label>
 									<div class="col-md-4">
-									<input required type="number" placeholder="Quantity Actual" name="dqunity_actual" id="dqunity_actual" class="form-control">
+									<input readonly type="number" placeholder="Quantity Actual" name="dqunity_actual" id="dqunity_actual" class="form-control">
 									<br>
 									</div>	
 								</div>
@@ -203,13 +203,13 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message" align="center">KM Reading Start</label>
 									<div class="col-md-4">
-									<input required type="number" placeholder="KM Reading Start" name="dstart_reading" id="dstart_reading" class="form-control">
+									<input readonly type="number" placeholder="KM Reading Start" name="dstart_reading" id="dstart_reading" class="form-control">
 									</div>	
 								</div>
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message" align="center">KM Reading End</label>
 									<div class="col-md-4">
-									<input required type="number" placeholder="KM Reading End" name="dend_reading" id="dend_reading" class="form-control">
+									<input readonly type="number" placeholder="KM Reading End" name="dend_reading" id="dend_reading" class="form-control">
 									<br><br>
 									</div>
 								</div>
@@ -217,26 +217,26 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message" align="center">Total KiloMeters</label>
 									<div class="col-md-4">
-									<input required type="number" readonly name="dtotal_km" id="dtotal_km" class="form-control">
+									<input readonly type="number" readonly name="dtotal_km" id="dtotal_km" class="form-control">
 									</div>	
 								</div>
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message" align="center">Average</label>
 									<div class="col-md-4">
-									<input required type="number" readonly  name="davg" id="davg" class="form-control">
+									<input readonly type="number" readonly  name="davg" id="davg" class="form-control">
 									<br><br>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message" align="center">Rate</label>
 									<div class="col-md-4">
-									<input required type="number" placeholder="Rate" name="drate" id="drate" class="form-control">
+									<input readonly type="number" placeholder="Rate" name="drate" id="drate" class="form-control">
 									</div>	
 								</div>
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message" align="center">Amount</label>
 									<div class="col-md-4">
-									<input required type="number" readonly  name="damount" id="damount" class="form-control">
+									<input readonly type="number" readonly  name="damount" id="damount" class="form-control">
 									<br><br>
 									</div>
 								</div>
@@ -244,7 +244,7 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message">Remark</label>
 									<div class="col-md-10">
-									<input required type="text" placeholder="Remark" name="dremark" id="dremark" class="form-control">
+									<input readonly type="text" placeholder="Remark" name="dremark" id="dremark" class="form-control">
 									<br><br>
 									</div>	
 								</div>
