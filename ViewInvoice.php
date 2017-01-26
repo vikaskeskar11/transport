@@ -31,7 +31,7 @@
 		
 		<div class="row" >
 			<div class="col-lg-12">
-				<h2 class="page-header" style="color:#1F618D  ;">Modify Invoice</h2>
+				<h2 class="page-header" style="color:#1F618D  ;">View Invoice</h2>
 			</div>
 			
 			
@@ -316,7 +316,11 @@
 									<br><br>
 									</div>
 									
-									
+									<div class="form-group" align="center">
+					<br><br>
+									<button type="button" onClick="openInNewTab();" class="btn btn-primary" style="width:100px;">Print</button>
+									<br><br>
+								</div>
 										
 						</div>
 	<script src="js/jquery-1.11.1.min.js"></script>
@@ -345,6 +349,15 @@
 		})
 
 
+	function openInNewTab()
+	{
+		var x=document.getElementById("ino").value;
+		url = 'PRINTVIEW.php?ino='+x;
+		var win=window.open(url,'_blank');
+		win.focus();
+		
+	}
+	
 function getDataOfInvoice() 
   {	
 createtable();
@@ -438,9 +451,14 @@ function getData()
       dataType: 'json',                //data format      
       success: function(data)          //on recieve of reply
       {
-		  alert(data);
-      //$('#output').html("<b>id: </b>"+id+"<b> name: </b>"+vname);//Set output element html	   window.alert(data);
-	  document.getElementById('iid').value=data[0];
+		  if(data == null)
+		  {
+			  alert('Invoice is not present');
+		  }else
+		  {
+			  
+		  
+      document.getElementById('iid').value=data[0];
 	  
 	   document.getElementById('iino').value=data[1];
 	   document.getElementById('invdate').value=data[2];
@@ -461,7 +479,7 @@ function getData()
 	   document.getElementById('').value=data[11];
 	    document.getElementById('').value=data[12];
 	   
-*/
+		  */  }
 	  } 
     });
  

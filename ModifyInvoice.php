@@ -31,13 +31,12 @@
 if($_POST)
 {
 	extract($_POST);
-print_r($_POST);
 
 	$query = "update invoice set idate='$invdate',iparty='$party1',iinvtotal='$invtot',icharges='$charge',itotalwithcharges='$itotal',
 	itotalwithservtax='$tax',ieducess='$etax',ihsccess='$htax',igrandtotal='$ttax',inetamt='$netamt',iremark='$rmk' where ino='$lrno'";
  $result=mysqli_query($conn, $query) or die (mysqli_error($conn));
-
- if(mysqli_affected_rows($conn))
+ print_r($result);
+ if($result)
 	{
 	 $message="Updated  Successfully";
 	 echo "<script type='text/javascript'>alert('$message');</script>";
@@ -50,6 +49,11 @@ $message1="NOT Upadated Successfully";
 //echo "<script type='text/javascript'>history.back();</script>";
 
 	}
+ $updatelr="UPDATE lorryreceipt set status=1 where ino='$lrno'";
+ $result1=mysqli_query($conn,$updatelr);
+
+ 
+ 
 	
 }
 ?>
@@ -121,7 +125,12 @@ $message1="NOT Upadated Successfully";
 									
 									<div class="col-md-6">
 									
-										<input  id="party1"  name="party1"  type="text" placeholder="Consignee"  class="form-control">
+										<input list="consigneelist" id="party1"  name="party1"  type="text" placeholder="Consignee"  class="form-control">
+									<datalist id = "consigneelist">
+										<option id="consigner" name="Consigner"></option>
+										<option id="consignee"  name="Consignee"></option>
+										</datalist>
+										
 									<br>
 									</div>
 										
@@ -149,7 +158,7 @@ $message1="NOT Upadated Successfully";
 						        <th data-field="name" >Billing</th>
 						        <th data-field="price" >Charges</th>
 						        <th data-field="price" >LR Total</th>
-								  <th data-field="price" style="visibility:hidden" >Consigner</th>
+								 <!-- <th data-field="price" >Consigner</th>-->
 						    </tr>
 						    </thead>
 						    <tbody>
@@ -280,7 +289,11 @@ $message1="NOT Upadated Successfully";
 								<div class="form-group col-md-2">
 								<button type="button" onClick="showlrdeatils();" class="btn btn-primary">Modify</button>
 								
-								</div>	
+								</div>
+								<div class="form-group col-md-2">
+								<button type="button" onClick="add_new_lr();" class="btn btn-primary">Add new LR</button>
+								
+								</div>								
 					</div>
 					
 					
@@ -292,7 +305,7 @@ $message1="NOT Upadated Successfully";
 					<div class="form-group col-lg-12">
 									<label class="col-md-1 control-label" for="name">Inv Total </label>
 									<div class="col-md-2">
-									<input  id="invtot" onfocus="invtotal();" readonly name="invtot"  type="number" value="0"  class="form-control">
+									<input  id="invtot" onfocus="invtotal();"  name="invtot"  type="number" value="0"  class="form-control">
 									</div>
 									
 									<label class="col-md-1 control-label" for="name">Charges </label>
@@ -305,17 +318,18 @@ $message1="NOT Upadated Successfully";
 									<input readonly id="itotal" readonly  name="itotal"  type="number"  value="0"   class="form-control">
 									</div>
 									
-									<div class="col-md-1">
+									<!--<div class="col-md-1">
 									<input  id="choice" name="check1"  type="checkbox" onchange="shows();"  class="form-control">
 									</div>
 									<label class="col-md-1 control-label" for="name">Taxable</label>
 									<div class="col-md-1">
-									<input id="tax"  name="ad"  type="number" value="0"  class="form-control">
+									<input  id="tax"  name="ad"  type="number" value="0"  class="form-control">
 									</div>
 										
 						</div>
-						
+						-->
 					<div class="form-group col-lg-12">
+					</br>
 									<label class="col-md-1 control-label" for="name">Service Tax </label>
 									<div class="col-md-2">
 									<input  id="stax"   name="tax"  type="number" value="0"  class="form-control">
@@ -368,24 +382,7 @@ $message1="NOT Upadated Successfully";
 								<button type="button" onClick="openInNewTab();" class="btn btn-primary" style="width:100px;">Print</button>
 								<br><br>
 								</div>	
-					
-							   
-					
-					
-					
-					
-					
-					
-				
-				
-							
-		
-			</div>	
-			
-			
-			
-			
-			
+					</div>	
 			
 		</div><!--/.row-->
 		
@@ -431,7 +428,7 @@ function getDataOfInvoice()
   {	
 
   var name=document.getElementById("ino").value;
-  alert(name);
+//  alert(name);
  var k=lrcheck();
  if(k==true)
  {
@@ -439,7 +436,7 @@ function getDataOfInvoice()
 
  }
  else{
-alert(name);
+//alert(name);
 	if(name=="")
 	{
 		window.alert("Enter Invoice Number First NO First");
@@ -457,7 +454,7 @@ alert(name);
 	  
 	   document.getElementById('iino').value=data[1];
 	   document.getElementById('invdate').value=data[2];
-	   document.getElementById('party').value=data[3];
+	   document.getElementById('party1').value=data[3];
 	   document.getElementById('invtot').value=data[4];
 	   document.getElementById('charges').value=data[5];
 	   document.getElementById('itotal').value=data[6];
@@ -566,8 +563,8 @@ function createtable()
 								var cell4=row.insertCell(3);
 								var cell5=row.insertCell(4);
 								var cell6=row.insertCell(5);
-								var cell7=row.insertCell(6);  
-								    cell7.style.visibility="hidden";
+								//var cell7=row.insertCell(6);  
+								
 								var d=data[a];
 		 
 		    
@@ -579,12 +576,12 @@ function createtable()
 								cell4.innerHTML=d[24];
 								cell5.innerHTML=d[32];
 								cell6.innerHTML=d[33];
-//								cell7.innerHTML=d[9];
-								cell7.style.visibility="hidden";						
-							if(a==0)
+							//	cell7.innerHTML=d[9];
+								if(a==0)
 								{
-									document.getElementById("party1").value=d[8];
-									document.getElementById("lrno").value=d[1];
+								document.getElementById('consigner').value=d[8];
+								document.getElementById('consignee').value=d[9];	   
+								document.getElementById("lrno").value=d[1];
 								document.getElementById("lrid").value=d[1];
 								document.getElementById("wt").value=d[12];
 								document.getElementById("cwt").value=d[12];
@@ -634,7 +631,7 @@ function getDataOfPerson()
   //clearall1();
   
   var name=document.getElementById("lrno").value;
-alert(name);
+//alert(name);
 	if(name=="")
 	{
 		window.alert("Enter LR NO First");
@@ -655,7 +652,7 @@ alert(name);
 	  
 	document.getElementById('lrid').value=data[1];
 	  
-	alert(document.getElementById('party').value);
+	//alert(document.getElementById('party').value);
 	  
 	   if(document.getElementById('party').value==data[8] || document.getElementById('party').value==data[9])
 	   {
@@ -710,7 +707,7 @@ function showlrdeatils()
 	var m1=document.getElementById('lrtable');	
 
 								
-	 if(name1=="" || name=="" )
+	 if(name1=="" || name=="" || name==null)
 	{
 		alert("Enter LR Number First");
 	}else{
@@ -720,17 +717,19 @@ function showlrdeatils()
 		 //salert(name1);
 			m1.deleteRow(name);
 			
-	/*$.ajax({                                      
+	$.ajax({                                      
       url: 'showlr_support.php',                  //the script to call to get data          
       data: "ino="+name1+"&lrno="+b,                        //you can insert url argumnets here to pass to api.php for example "id=5&parent=6"
       dataType: 'json',                //data format      
       success: function(data)          //on recieve of reply
       {
 		  
-       
-      //$('#output').html("<b>id: </b>"+id+"<b> name: </b>"+vname);//Set output element html
-								window.alert(data);
-								document.getElementById("party1").value=data[8];
+if(data==null){
+	alert('Unbilled LR');
+}
+else{
+								document.getElementById("consigner").value=data[8];
+								document.getElementById("consignee").value=data[9];
 									document.getElementById("lrno").value=data[1];
 								document.getElementById("lrid").value=data[1];
 								document.getElementById("wt").value=data[12];
@@ -747,9 +746,10 @@ function showlrdeatils()
 								document.getElementById("other").value=data[31];
 								document.getElementById("tcharge").value=data[32];
 								document.getElementById("lrtot").value=data[33];
-
+	
+}
 	  } 
-    });*/
+    });
  
 }
 }
@@ -762,7 +762,7 @@ function deleterow1()
 				
 				var y=document.getElementById("lrtable").rows[a].cells;
 				var lrno = y[0].innerHTML;
-				alert(lrno);
+				//alert(lrno);
 				$.ajax({                                      
       url: 'modifyinv_support_file1.php',                  //the script to call to get data          
       data: "lrno="+lrno,                        //you can insert url argumnets here to pass to api.php for example "id=5&parent=6"
@@ -800,8 +800,7 @@ function deleterow1()
 								   }
 								document.getElementById("charges").value=+z - +y;
 								document.getElementById("itotal").value=+s - +n;
-								
-//document.getElementById("netamt").value=+rr - +n;								
+										
 clearall1();							   
 m1.deleteRow(a);
 /*var name1=document.getElementById("ino").value;
@@ -847,7 +846,7 @@ $.ajax({
 }
 
 function clearall1(){
-	document.getElementById("party1").value=0;
+	//document.getElementById("party1").value=0;
 									document.getElementById("lrno").value=0;
 								document.getElementById("lrid").value=0;
 								document.getElementById("wt").value=0;
@@ -865,9 +864,6 @@ function clearall1(){
 								document.getElementById("tcharge").value=0;
 								document.getElementById("lrtot").value=0;
 	
-	
-	
-	
 }
 
 
@@ -876,9 +872,21 @@ function clearall1(){
 function myfunction()
 							{
 								
-	var name=document.getElementById("lrno").value;
-	var ino=document.getElementById("iino").value;
-	alert(ino);
+						var name=document.getElementById("lrno").value;
+						var ino=document.getElementById("iino").value;											
+						var rate=document.getElementById("rate").value;
+						var perc=document.getElementById("perc").value;
+						var stotal=document.getElementById("stotal").value;
+						var load=document.getElementById("load").value;
+						var unload=document.getElementById("unload").value;
+						var stat=document.getElementById("stat").value;
+						var tail=document.getElementById("tail").value;
+						var det=document.getElementById("det").value;
+						var del=document.getElementById("del").value;
+						var other=document.getElementById("other").value;
+						var tcharge=document.getElementById("tcharge").value;
+						var lrtot=document.getElementById("lrtot").value;
+	
 	if(name=="")
 	{
 		window.alert("Invalid LR");
@@ -887,22 +895,48 @@ function myfunction()
 	else{
 	$.ajax({                                      
       url:'inovise_add_support.php',
-	  data:"lrno="+name+"&ino="+ino,
+	  data:"lrno="+name+"&ino="+ino+"&rate="+rate+"&rate1="+perc+"&subtotal="+stotal+"&load="+load+"&unload="+unload+"&stat="+stat+"&tail="+tail+"&detention="+det+"&delivery="+del+"&other="+other+"&totalcharge="+tcharge+"&lrtot="+lrtot,
       dataType:'json',                //data format      
       success: function(data)          //on recieve of reply
       {
-		  window.alert(data);
-		var table1 = document.getElementById('lrtable').getElementsByTagName('tr');
+		//  window.alert(data);
+		//var table1 = document.getElementById('lrtable').getElementsByTagName('tr');
 		
+				   
+	   var x = document.getElementById("lrtable").rows;
+									var i=0,j=0,flag=0;
+									
+									loop1:
+									
+									for(i=1;i<x.length;i++)
+									{
+										var y=document.getElementById("lrtable").rows[i].cells;
+												if(y[0].innerHTML==name)
+												{
+												flag=1;
+											break loop1;
+											
+											}
+								}
+								
+
+		if(flag==1){
+			alert('LR already added to table');
+		}
+		else{
+		//	alert('in else check add row');
 									tablerow();
+		}
+			
 			}					
 		  
 	 } 
     );
 	
-}
-document.getElementById('addbtn').style.visibility = "hidden";
-}						
+	}
+		document.getElementById("addbtn").style.visibility="hidden";
+
+	}						
 								
 								
 	function tablerow()
@@ -929,7 +963,7 @@ document.getElementById('addbtn').style.visibility = "hidden";
 								var cell4=row.insertCell(3);
 								var cell5=row.insertCell(4);
 								var cell6=row.insertCell(5);
-								var cell7=row.insertCell(6);
+								//var cell7=row.insertCell(6);
 								
 								cell1.innerHTML=document.getElementById("lrno").value;
 								
@@ -938,7 +972,7 @@ document.getElementById('addbtn').style.visibility = "hidden";
 								cell4.innerHTML=document.getElementById("stotal").value;
 								cell5.innerHTML=document.getElementById("tcharge").value;
 								cell6.innerHTML=document.getElementById("lrtot").value;
-								cell7.innerHTML=data[8];
+								//cell7.innerHTML=data[8];
 								
 								
 }
@@ -949,7 +983,6 @@ function tablecheck()
 	{
 		
 		
-		/*
 		var name=document.getElementById("lrno").value;
 //alert(name);
 	if(name=="")
@@ -962,7 +995,7 @@ function tablecheck()
       dataType: 'json',                //data format      
       success: function(data)          //on recieve of reply
       {
-		alert(data[8]);
+	//	alert(data[8]);
 		//alert(data[3]);						
 									var x = document.getElementById("lrtable").rows;
 			
@@ -1001,8 +1034,7 @@ function tablecheck()
 	}	
 	
 	
-		}*/
-		
+	
 	}
 	function lrcheck()
 {
@@ -1066,28 +1098,26 @@ document.getElementById("lrtot").value=o;
 
 function invtotal()
 {
+	//alert('In invtotal');
 	var x = document.getElementById("lrtable").rows;
+
 	var i=0,j=0,a=0;
-									
-								
-									document.getElementById("invtot").value=0;
-									document.getElementById("charges").value=0;
-									document.getElementById("itotal").value=0;
-									for(i=1;i<x.length;i++)
+						var r=0,charge=0,total=0;
+									for(i=1;i<=x.length;i++)
 									{
-										
-										var y=document.getElementById("lrtable").rows[i].cells;
-										var k=y[3].innerHTML;
-									var m=y[4].innerHTML;
-									var r=y[5].innerHTML;
-                         var r1=document.getElementById("itotal").value;
-										a=document.getElementById("invtot").value;
-										j=document.getElementById("charges").value;
-										document.getElementById("invtot").value=+a  + +k;
-										document.getElementById("charges").value=+j  + +m;
-										 document.getElementById("itotal").value=+r + +r1;
-										
+								var y = document.getElementById("lrtable").rows[i].cells;
+									
+									var r1=y[3].innerHTML;
+									r=+r + +r1;
+									var c1=y[4].innerHTML;
+									charge=+charge + +c1;
+							document.getElementById('invtot').value=r;
+							document.getElementById('charges').value=charge;
+							total=+document.getElementById('invtot').value + +document.getElementById('charges').value;
+							 document.getElementById("itotal").value=total;
 									}
+							
+
 }						 
 function nettotal()
 {
@@ -1097,12 +1127,151 @@ function nettotal()
 }
 function totaltax()
 {
-	var a=document.getElementById("tax").value;
 	var b=document.getElementById("stax").value;
 	var c=document.getElementById("etax").value;
 	var d=document.getElementById("htax").value;
-	document.getElementById("ttax").value=+a + +b + +c + +d;
+	document.getElementById("ttax").value=+b + +c + +d;
 }
+
+
+function add_new_lr()
+{
+	var name=document.getElementById("ino").value;
+	var lrno1=prompt("Enter LR no to add");
+	var party=document.getElementById('party1').value;
+	if(name=="" || lrno1=="" || lrno1==null)
+	{
+		window.alert("Enter Invoice Number First NO First");
+	}else
+	{
+	$.ajax({                                      
+      url: 'lr_check_support.php',                  //the script to call to get data          
+      data: "lrno="+lrno1,                        //you can insert url argumnets here to pass to api.php for example "id=5&parent=6"
+      dataType: 'json',                //data format      
+      success: function(data)          //on recieve of reply
+      {
+		  
+	   var table=document.getElementById("lrtable");
+	   var table1=document.getElementById("lrtable").rows;
+								var d=data;
+							//	alert(d);
+		if(d[8]==party || d[9]==party){
+	
+	   if(table1.length==1){
+								var row=table.insertRow(-1);
+								//var f=row.rowIndex;
+								//alert(f);
+								var cell1=row.insertCell(0);
+								var cell2=row.insertCell(1);
+								var cell3=row.insertCell(2);
+								var cell4=row.insertCell(3);
+								var cell5=row.insertCell(4);
+								
+							cell1.innerHTML=d[1];
+								
+								cell2.innerHTML=d[2];
+							cell3.innerHTML=d[3];
+								cell4.innerHTML=d[24];
+								cell5.innerHTML=d[32];
+								cell6.innerHTML=d[33];
+								
+								document.getElementById("lrno").value=d[1];
+								document.getElementById("lrid").value=d[1];
+								document.getElementById("wt").value=d[12];
+								document.getElementById("cwt").value=d[12];
+								document.getElementById("rate").value=d[22];
+								document.getElementById("perc").value=d[23];
+								document.getElementById("stotal").value=d[24];
+								document.getElementById("load").value=d[25];
+								document.getElementById("unload").value=d[26];
+								document.getElementById("stat").value=d[27];
+								document.getElementById("tail").value=d[28];
+								document.getElementById("det").value=d[29];
+								document.getElementById("del").value=d[30];
+								document.getElementById("other").value=d[31];
+								document.getElementById("tcharge").value=d[32];
+		document.getElementById("lrtot").value=d[33];
+	
+	
+	   }
+	   else{
+		   
+	   var x = document.getElementById("lrtable").rows;
+									
+									var i=0,j=0,flag=0;
+									
+									loop1:
+									
+									for(i=1;i<x.length;i++)
+									{
+										var y=document.getElementById("lrtable").rows[i].cells;
+												if(y[0].innerHTML==lrno1)
+												{
+												flag=1;
+											break loop1;
+											
+											}
+								}
+									
+	   if(flag==1)
+	   {
+		   alert('LR is already present');
+	   }
+	   else{
+	//	alert("add_lr else");
+
+								document.getElementById("party1").value=d[8];
+								document.getElementById("lrno").value=d[1];
+								document.getElementById("lrid").value=d[1];
+								document.getElementById("wt").value=d[12];
+								document.getElementById("cwt").value=d[12];
+								document.getElementById("rate").value=d[22];
+								document.getElementById("perc").value=d[23];
+								document.getElementById("stotal").value=d[24];
+								document.getElementById("load").value=d[25];
+								document.getElementById("unload").value=d[26];
+								document.getElementById("stat").value=d[27];
+								document.getElementById("tail").value=d[28];
+								document.getElementById("det").value=d[29];
+								document.getElementById("del").value=d[30];
+								document.getElementById("other").value=d[31];
+								document.getElementById("tcharge").value=d[32];
+								document.getElementById("lrtot").value=d[33];
+
+								var row=table.insertRow(-1);	
+								var cell1=row.insertCell(0);
+								var cell2=row.insertCell(1);
+								var cell3=row.insertCell(2);
+								var cell4=row.insertCell(3);
+								var cell5=row.insertCell(4);
+								var cell6=row.insertCell(5);
+								
+								var d=data;
+		 
+		    
+			 //alert(d.length);
+								cell1.innerHTML=d[1];
+								cell2.innerHTML=d[2];
+								cell3.innerHTML=d[3];
+								cell4.innerHTML=d[24];
+								cell5.innerHTML=d[32];
+								cell6.innerHTML=d[33];
+								
+	      }
+		 }		
+
+	}
+		else{
+			alert('Parties are not same	');
+		}
+
+	   
+	  }   
+    });	
+		}
+}
+	
+
 	</script>	
 </body>
 

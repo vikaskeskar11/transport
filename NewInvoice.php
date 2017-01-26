@@ -13,7 +13,22 @@
 
 <!--Icons-->
 <script src="js/lumino.glyphs.js"></script>
+<script>
+function validateInfo()
+{
+	var table=document.getElementById("lrtable").rows;
+	if(table.length==1)
+	{
+		alert('Insert at least one LR');
+	return false;
 
+}
+else{
+	return true;
+}
+}
+
+</script>
 
 </head>
 
@@ -35,12 +50,7 @@ $query = "INSERT INTO invoice  VALUES ('$iid','$ino','$invdate','$party1','$invt
  $updatelr="UPDATE lorryreceipt set status=1 where ino='$ino'";
  
  $result1=mysqli_query($conn,$updatelr);
- if($result1){
-	 
-	 $message1="LR updated Successfully";
-	 echo "<script type='text/javascript'>alert('$message1');</script>";
- }
- 
+
  
  if($result)
 	{
@@ -62,7 +72,7 @@ $message1="NOT Inserted Successfully";
 
 
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main" >			
-		<form action="NewInvoice.php" method="POST" name="myForm">
+		<form action="NewInvoice.php" method="POST" name="myForm" onsubmit="return validateInfo();">
 		
 		<div class="row" >
 			<div class="col-lg-12">
@@ -76,7 +86,7 @@ $message1="NOT Inserted Successfully";
 						
 						<div class="form-group">
 									<label class="col-md-1 control-label" for="name"> ID. </label>
-									<div class="col-md-3">
+									<div class="col-md-2">
 									
 									<?php 
 									$query="SELECT iid FROM invoice ORDER BY iid DESC LIMIT 1";
@@ -95,14 +105,15 @@ $message1="NOT Inserted Successfully";
 									<input  id="iid" readonly  name="iid"  type="number"  value="<?php echo $lid+1?>" class="form-control">
 									</div>
 									
-									<label class="col-md-2 control-label" for="name">Invoice NO. </label>
-									<div class="col-md-3">
-									<input  required type="number" id="ino"  name="ino"  type="number"   class="form-control">
-									</div>
-									
-									<label class="col-md-1 control-label" for="name" align="center"> DATE </label>
+									<label class="col-md-1 control-label" for="name">Invoice NO. </label>
 									<div class="col-md-2">
-									<input  required type="date"  id="invdate"  name="invdate"  type="date"   class="form-control">
+									<input  required type="number" onfocus="INOSelf();" id="ino"  name="ino"  type="number"   class="form-control">
+									</div>
+									<label style="color:red;visibility:hidden;" class="col-md-2 control-label" id="inv_check_notice" for="name" align="center">Invoice Already Present</label>
+
+									<label class="col-md-1 control-label" for="name" align="center"> DATE </label>
+									<div class="col-md-3">
+									<input  required type="date"  id="invdate" onfocus="CheckinvFunction();"  name="invdate"  type="date"   class="form-control">
 									<br>
 									</div>
 										
@@ -198,7 +209,7 @@ $message1="NOT Inserted Successfully";
 					<div class="form-group">
 									<label class="col-md-1 control-label" for="name">Calc Wt. </label>
 									<div class="col-md-2">
-									<input readonly required type="number" id="cwt"  name="ad"  type="number" placeholder="Weight"  class="form-control">
+									<input  required type="number" id="cwt"  name="ad"  type="number" placeholder="Weight"  class="form-control">
 									</div>
 									
 									<label class="col-md-1 control-label" for="name">Rate </label>
@@ -288,7 +299,8 @@ $message1="NOT Inserted Successfully";
 								<div class="form-group col-md-2">
 								<button type="button" onClick="deleterow1();"class="btn btn-primary">Remove</button>
 								<br>
-								</div>	
+								</div>
+								
 								
 					</div>
 					
@@ -311,18 +323,19 @@ $message1="NOT Inserted Successfully";
 									<div class="col-md-2">
 									<input  id="itotal" required type="number" readonly  name="itotal"  type="number" placeholder="0"  class="form-control">
 									</div>
-									
+									<!--
 									<div class="col-md-1">
-									<!--<input  id="choice" name="choice"  type="checkbox"  onchange="shows();" class="form-control">-->
+									<input  id="choice" name="choice"  type="checkbox"  onchange="shows();" class="form-control">
 									</div>
 									<label class="col-md-1 control-label" for="name">Taxable</label>
 									<div class="col-md-1">
 									<input  id="tax"    name="tax"  value="0" type="number" value="0"  class="form-control">
-									</div>
+									</div>-->
 										
 						</div>
 						
 					<div class="form-group col-lg-12">
+					</br>
 									<label class="col-md-1 control-label" for="name">Service Tax </label>
 									<div class="col-md-2">
 									<input  id="stax"    name="stax"  value="0" type="number"   class="form-control">
@@ -367,7 +380,7 @@ $message1="NOT Inserted Successfully";
 							
 					<div class="form-group" align="center">
 					<br><br>
-								<button type="submit" class="btn btn-primary" style="width:100px;">Add</button>
+								<button type="submit" id="addbtn" class="btn btn-primary" style="width:100px;">Add</button>
 								
 								
 								<br><br>
@@ -432,6 +445,31 @@ function clearall1(){
 }
 
 
+function clearall2(){
+										
+	   document.getElementById("lrno").value="";
+	document.getElementById("rate").value="";
+	document.getElementById("rate1").value="";
+	document.getElementById("subtotal").value="";
+	document.getElementById("load").value="";
+	document.getElementById("unload").value="";
+	document.getElementById("stat").value="";
+	document.getElementById("tail").value="";
+	document.getElementById("detention").value="";
+	document.getElementById("delivery").value="";
+	document.getElementById("other").value="";
+	document.getElementById("totalcharge").value="";
+	document.getElementById("lrtot").value="";
+	document.getElementById("ino").value="";
+	document.getElementById("wt").value="";
+	document.getElementById("cwt").value="";
+	document.getElementById("lrid").value="";
+	
+	
+	
+	
+}
+
 function insertlr()
 {
 	}
@@ -464,7 +502,8 @@ function getDataOfPerson()
 	{
 		document.getElementById('lrid').value=data[1];
 	  
-	document.getElementById('consigner').value=data[8];document.getElementById('consignee').value=data[9];	   
+	document.getElementById('consigner').value=data[8];
+	document.getElementById('consignee').value=data[9];	   
 	   document.getElementById('wt').value=data[12];
 	    document.getElementById('cwt').value=data[12];
 		}else{
@@ -624,8 +663,9 @@ function deleterow1()
 								document.getElementById("charges").value=+z - +y;
 								document.getElementById("itotal").value=+s - +n;		
 m1.deleteRow(a);
+clearall2();	  
+
 	  alert("deleted successfully");	
-clearall();	  
    }
    else
    {
@@ -781,12 +821,97 @@ function nettotal()
 }
 function totaltax()
 {
-	var a=document.getElementById("tax").value;
+	//var a=document.getElementById("tax").value;
 	var b=document.getElementById("stax").value;
 	var c=document.getElementById("etax").value;
 	var d=document.getElementById("htax").value;
-	document.getElementById("ttax").value=+a + +b + +c + +d;
+	document.getElementById("ttax").value=+b + +c + +d;
 }
+
+
+function CheckinvFunction() 
+  {	
+  var name=document.getElementById("ino").value;
+  document.getElementById('invdate').value=new Date().toISOString().substring(0, 10);
+	if(name=="")
+	{
+	//	window.alert("Enter Invoice NO First");
+	}else{
+	$.ajax({                                      
+      url: 'ino_check_support.php',                  //the script to call to get data          
+      data: "ino="+name,                        //you can insert url argumnets here to pass to api.php for example "id=5&parent=6"
+      dataType: 'json',                //data format      
+      success: function(data)          //on recieve of reply
+      {
+		  
+       if(data == null)
+	   {
+		   // lr is absent
+		   document.getElementById('inv_check_notice').style.visibility="hidden";
+		  INOSelf();
+	   }else
+       {
+
+   document.getElementById('inv_check_notice').style.visibility="visible";
+	var name=document.getElementById("lrno").disabled=true;
+	var rate=document.getElementById("rate").disabled=true;
+	var rate1=document.getElementById("rate1").disabled=true;
+	var subtotal=document.getElementById("subtotal").disabled=true;
+	var load=document.getElementById("load").disabled=true;
+	var unload=document.getElementById("unload").disabled=true;
+	var stat=document.getElementById("stat").disabled=true;
+	var tail=document.getElementById("tail").disabled=true;
+	var detention=document.getElementById("detention").disabled=true;
+	var delivery=document.getElementById("delivery").disabled=true;
+	var other=document.getElementById("other").disabled=true;
+	var totalcharge=document.getElementById("totalcharge").disabled=true;
+	var lrtot=document.getElementById("lrtot").disabled=true;
+	  document.getElementById('invdate').disabled=true;
+	  document.getElementById('lrid').disabled=true;
+	  document.getElementById('party1').disabled=true;
+		document.getElementById("tax").disabled=true;
+		document.getElementById("stax").disabled=true;
+		document.getElementById("etax").disabled=true;
+		document.getElementById("htax").disabled=true;
+		document.getElementById("rmk").disabled=true;
+		document.getElementById("addbtn").disabled=true;
+		document.getElementById('cwt').disabled=true;
+
+	}
+	  }
+	});
+	}
+  }
+
+
+function INOSelf()
+{
+		   document.getElementById('inv_check_notice').style.visibility="hidden";
+
+		var name=document.getElementById("lrno").disabled=false;
+	var rate=document.getElementById("rate").disabled=false;
+	var rate1=document.getElementById("rate1").disabled=false;
+	var subtotal=document.getElementById("subtotal").disabled=false;
+	var load=document.getElementById("load").disabled=false;
+	var unload=document.getElementById("unload").disabled=false;
+	var stat=document.getElementById("stat").disabled=false;
+	var tail=document.getElementById("tail").disabled=false;
+	var detention=document.getElementById("detention").disabled=false;
+	var delivery=document.getElementById("delivery").disabled=false;
+	var other=document.getElementById("other").disabled=false;
+	var totalcharge=document.getElementById("totalcharge").disabled=false;
+	var lrtot=document.getElementById("lrtot").disabled=false;
+	document.getElementById('invdate').disabled=false;
+	  document.getElementById('lrid').disabled=false;
+	  document.getElementById('party1').disabled=false;
+		document.getElementById("tax").disabled=false;
+		document.getElementById("stax").disabled=false;
+		document.getElementById("etax").disabled=false;
+		document.getElementById("htax").disabled=false;
+		document.getElementById("rmk").disabled=false;
+	  		document.getElementById("addbtn").disabled=false;
+			document.getElementById('cwt').disabled=false;
+	  }
 
 	</script>	
 </body>

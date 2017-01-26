@@ -80,7 +80,7 @@
 				</a>
 				<ul class="children collapse" id="sub-item-1">
 					<li>
-						<a class="" href="index.php">
+						<a class="" href="addnewperson.php">
 							<svg class="glyph stroked plus sign"><use xlink:href="#stroked-plus-sign"></use></svg> Add New Person
 						</a>
 					</li>

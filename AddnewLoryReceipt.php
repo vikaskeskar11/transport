@@ -44,6 +44,13 @@ $result=mysqli_query($conn, $query) or die (mysqli_error($conn));
 	 $message="Inserted Successfully";
 	 echo "<script type='text/javascript'>alert('$message');</script>";
 //echo "<script type='text/javascript'>history.back();</script>";
+
+$vehicle_query=mysqli_query($conn,"select * from vehicle where regno='$vehicle'");
+if(mysqli_num_rows($vehicle_query)==0)
+{
+	
+$vehicle_query=mysqli_query($conn,"insert into vehicle values('','$vehicle','','','','')");
+}
 	}
 	else
 	{
@@ -81,7 +88,7 @@ $message1="NOT Inserted Successfully";
 						
 						<div class="form-group">
 									<label class="col-md-1 control-label" for="name">LR ID. </label>
-									<div class="col-md-3">
+									<div class="col-md-1">
 									<?php 
 									$query="SELECT lid FROM lorryreceipt ORDER BY lid DESC LIMIT 1";
 									$result=mysqli_query($conn, $query); 
@@ -97,13 +104,13 @@ $message1="NOT Inserted Successfully";
 									
 									
 									<label class="col-md-1 control-label" for="name">LR NO. </label>
-									<div class="col-md-3">
-									<input required type="number" id="lrno"  name="lrno"  type="number"   class="form-control">
-									</div>
-									
-									<label class="col-md-2 control-label" for="name" align="center">LR DATE </label>
 									<div class="col-md-2">
-									<input required type="date" id="lrdate"  name="lrdate"  type="date"   class="form-control">
+									<input required type="number" id="lrno" onfocus="LRNOSelf();" name="lrno"  type="number"   class="form-control">
+									</div>
+									<label style="color:red;visibility:hidden;" class="col-md-2 control-label" id="lr_check_notice" for="name" align="center">LR Already Present</label>
+									<label class="col-md-2 control-label" for="name" align="center">LR DATE </label>
+									<div class="col-md-3">
+									<input required   id="lrdate"  onfocus="CheckLrFunction();" type="date" name="lrdate"    class="form-control">
 									<br>
 									</div>
 										
@@ -121,7 +128,7 @@ $message1="NOT Inserted Successfully";
 										$result = mysqli_query($conn,$query);
 										if(mysqli_num_rows($result)>0)
 										{
-									echo '<input  list="vehiclelist" id="person"  name="vehicle"  type="text" placeholder="Vehicle"  class="form-control">';
+									echo '<input required list="vehiclelist" id="vehicle"  name="vehicle"  type="text" placeholder="Vehicle"  class="form-control">';
 									echo '<datalist id = "vehiclelist">';
 									//echo '<option>Please Select Person</option>';
 									while($row = mysqli_fetch_assoc($result))
@@ -152,7 +159,7 @@ $message1="NOT Inserted Successfully";
 						</div>
 						
 							<div class="form-group col-md-2">
-								<button type="button" onClick="location.href='addnewvehical.php'" class="btn btn-primary">New</button>
+								<button type="button" style="visibility:hidden;" onClick="location.href='addnewvehical.php'" class="btn btn-primary">New</button>
 								<br>
 								</div>	
 				
@@ -164,22 +171,17 @@ $message1="NOT Inserted Successfully";
 					<h4 class="page-header" style="color:#1F618D  ;">Locations</h4>
 					</div>
 			
-					
-				
-								
-								
-								
 								<div class="col-md-12">
 				<div class="form-group">
 									<label class="col-md-2 control-label" for="message" align="center">From</label>
 									<div class="col-md-4">
 				<?php
 									if($conn){
-										$query = 'select city_name from cities';
+										$query = 'select DISTINCT city_name from cities ORDER BY city_name ASC';
 										$result = mysqli_query($conn,$query);
 										if(mysqli_num_rows($result)>0)
 										{
-									echo '<input  list="citylist" id="lrfrom"  name="lrfrom"  type="text" placeholder="From"  class="form-control">';
+									echo '<input required list="citylist" id="lrfrom"  name="lrfrom"  type="text" placeholder="From"  class="form-control">';
 									echo '<datalist id = "citylist">';
 									//echo '<option>Please Select Person</option>';
 									while($row = mysqli_fetch_assoc($result))
@@ -208,7 +210,7 @@ $message1="NOT Inserted Successfully";
 										$result = mysqli_query($conn,$query);
 										if(mysqli_num_rows($result)>0)
 										{
-									echo '<input  list="citylist" id="lrto"  name="lrto"  type="text" placeholder="To"  class="form-control">';
+									echo '<input required list="citylist" id="lrto"  name="lrto"  type="text" placeholder="To"  class="form-control">';
 									echo '<datalist id = "citylist">';
 									//echo '<option>Please Select Person</option>';
 									while($row = mysqli_fetch_assoc($result))
@@ -229,7 +231,7 @@ $message1="NOT Inserted Successfully";
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message">Distance</label>
 									<div class="col-md-4">
-									<input required type="number" placeholder="Distance in Kilo Meters" name="lrdistance" id="local_city" class="form-control">
+									<input value="0" type="number" placeholder="Distance in Kilo Meters" name="lrdistance" id="lrdistance" class="form-control">
 									<br>
 									</div>
 									
@@ -237,7 +239,7 @@ $message1="NOT Inserted Successfully";
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message">Days Required</label>
 									<div class="col-md-4">
-									<input required type="number" placeholder="Days Rquired" name="lrdaysreq" id="local_pincode" class="form-control">
+									<input value="0" type="number" placeholder="Days Rquired" name="lrdaysreq" id="daysreq" class="form-control">
 									<br>
 									</div>	
 								</div>
@@ -259,7 +261,7 @@ $message1="NOT Inserted Successfully";
 										$result = mysqli_query($conn,$query);
 										if(mysqli_num_rows($result)>0)
 										{
-									echo '<input  list="consigneelist" id="lrto"  name="consigner"  type="text" placeholder="Consignee"  class="form-control">';
+									echo '<input required list="consigneelist" id="consigner"  name="consigner"  type="text" placeholder="Consignee"  class="form-control">';
 									echo '<datalist id = "consigneelist">';
 									//echo '<option>Please Select Person</option>';
 									while($row = mysqli_fetch_assoc($result))
@@ -270,27 +272,15 @@ $message1="NOT Inserted Successfully";
 									}
 							
 									echo '</datalist>';
-										}else
-										{
-											echo '<input  list="consigneelist" id="person"  name="consigner" type="text" placeholder="Consignee"  class="form-control">';
-											echo '<datalist id = "consigneelist">';
-											echo '<option>No Consignee in Database</option>';
-											echo '</datalist>';
-									
 										}
 										
-									}else{
-											echo '<input  list="consigneelist" id="person"  name="consigner"  type="text" placeholder="Consignee"  class="form-control">';
-											echo '<datalist id = "consigneelist">';
-											echo '<option>No Consignee Present in Database</option>';
-											echo '</datalist>';
 									}
 									
 									?>
 									</div>
 									
 									<div class="form-group col-md-2">
-								<button type="button" class="btn btn-primary">New</button>
+								<button type="button" style="visibility:hidden;" class="btn btn-primary">New</button>
 								<br>
 								</div>	
 						</div>
@@ -304,7 +294,7 @@ $message1="NOT Inserted Successfully";
 										$result = mysqli_query($conn,$query);
 										if(mysqli_num_rows($result)>0)
 										{
-									echo '<input  list="consignerlist" id="lrto"  name="consignee"  type="text" placeholder="Consigner"  class="form-control">';
+									echo '<input required list="consignerlist" id="consignee"  name="consignee"  type="text" placeholder="Consigner"  class="form-control">';
 									echo '<datalist id = "consignerlist">';
 									//echo '<option>Please Select Person</option>';
 									while($row = mysqli_fetch_assoc($result))
@@ -314,36 +304,17 @@ $message1="NOT Inserted Successfully";
 									}
 							
 									echo '</datalist>';
-										}else
-										{
-											echo '<input  list="consignerlist" id="person"  name="consignee" type="text" placeholder="Consginer"  class="form-control">';
-											echo '<datalist id = "consignerlist">';
-											echo '<option>No Consigner in Database</option>';
-											echo '</datalist>';
-									
 										}
 										
-									}else{
-											echo '<input  list="consignerlist" id="person"  name="consigner"  type="text" placeholder="Consigner"  class="form-control">';
-											echo '<datalist id = "consignerlist">';
-											echo '<option>No Consigner Present in Database</option>';
-											echo '</datalist>';
-									}
-									
+									}									
 									?>
 									</div>
 									
 									<div class="form-group col-md-2">
-								<button type="button" class="btn btn-primary">New</button>
+								<button type="button" style="visibility:hidden;" class="btn btn-primary">New</button>
 								<br>
 								</div>	
 						</div>
-					
-							   
-					
-							
-					
-					
 					
 					<div class="col-lg-12">
 					<h4 class="page-header" style="color:#1F618D  ;">Packaging</h4>
@@ -358,20 +329,20 @@ $message1="NOT Inserted Successfully";
 									
 									<label class="col-md-1 control-label" for="name">Method </label>
 									<div class="col-md-2">
-									<select  required type="text" class="form-control" name="method">
+									<select  required type="text" id="package_select" class="form-control" name="method">
 										<option>Nos.</option>
-										<option>Kg</option>
-										<option>Quintle</option>
+										<option>BAGS</option>
+										<option>UNITS</option>
 										<option>Box</option>
 									</select></div>
 									
 									<label class="col-md-2 control-label" for="name" align="center">Weight </label>
 									<div class="col-md-2">
-									<input  id="wt"  required type="number" name="wt" placeholder="Weight" type="number"   class="form-control">
+									<input  id="wt"  required type="number"  name="wt" placeholder="Weight" type="number"   class="form-control">
 									<br>
 									</div>
 									<div class="col-md-2">
-									<select class="form-control" name="weight_method_input">
+									<select required id="weight_method" class="form-control" name="weight_method_input">
 										<option>M.Tons</option>
 										<option>Kg</option>
 										<option>Quintle</option>
@@ -391,7 +362,7 @@ $message1="NOT Inserted Successfully";
 										$result = mysqli_query($conn,$query);
 										if(mysqli_num_rows($result)>0)
 										{
-									echo '<input  list="desc_list" id="Description"  name="desc"  type="text" placeholder="Descr."  class="form-control">';
+									echo '<input  list="desc_list" id="desc"  name="desc"  type="text" placeholder="Descr."  class="form-control">';
 									echo '<datalist id = "desc_list">';
 									while($row = mysqli_fetch_assoc($result))
 									{	
@@ -404,13 +375,8 @@ $message1="NOT Inserted Successfully";
 									?>
 									
 									</div>
-									
-										
 						</div>
 					
-							   
-					
-							
 					<br>
 					
 						<div class="col-lg-12">
@@ -433,13 +399,6 @@ $message1="NOT Inserted Successfully";
 									<input  id="inv4"  name="inv4"  type="text" placeholder="Invoice 4"  class="form-control">
 									<br>
 									</div>
-									
-											   
-					
-							
-					
-					
-					
 					<div class="form-group">
 									<label class="col-md-1 control-label" for="name">Quantity </label>
 									<div class="col-md-3">
@@ -461,7 +420,7 @@ $message1="NOT Inserted Successfully";
 					
 					<div class="form-group">
 					<br><br>
-								<button type="submit" class="btn btn-primary" style="width:100px;">Ok</button>
+								<button type="submit" id="lrSubmitButton" class="btn btn-primary" style="width:100px;">Ok</button>
 								<br><br>
 								</div>	
 					
@@ -498,7 +457,7 @@ $message1="NOT Inserted Successfully";
 	<script>
 		$('#calendar').datepicker({
 		});
-
+	
 		!function ($) {
 		    $(document).on("click","ul.nav li.parent > a > span.icon", function(){          
 		        $(this).find('em:first').toggleClass("glyphicon-minus");      
@@ -513,8 +472,85 @@ $message1="NOT Inserted Successfully";
 		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
 		})
 	
-	
-	
+function CheckLrFunction() 
+  {	
+  var name=document.getElementById("lrno").value;
+  document.getElementById('lrdate').value=new Date().toISOString().substring(0, 10);
+  document.getElementById('date').value=new Date().toISOString().substring(0, 10);
+	if(name=="")
+	{
+		//window.alert("Enter LR NO First");
+	}else{
+	$.ajax({                                      
+      url: 'lr_check_support.php',                  //the script to call to get data          
+      data: "lrno="+name,                        //you can insert url argumnets here to pass to api.php for example "id=5&parent=6"
+      dataType: 'json',                //data format      
+      success: function(data)          //on recieve of reply
+      {
+		  
+       if(data == null)
+	   {
+		   // lr is absent
+		   document.getElementById('lr_check_notice').style.visibility="hidden";
+		  
+	   }else
+       {
+		      document.getElementById('lr_check_notice').style.visibility="visible";
+			  
+	  
+	   document.getElementById('lrdate').disabled=true;
+	   document.getElementById('vehicle').disabled = true;
+	   document.getElementById('lrfrom').disabled=true;
+	   document.getElementById('lrto').disabled=true;
+	   document.getElementById('lrdistance').disabled=true;
+	   document.getElementById('daysreq').disabled=true;
+	   document.getElementById('consigner').disabled=true;
+	   document.getElementById('consignee').disabled=true;
+	   document.getElementById('packages').disabled=true;
+	   document.getElementById('package_select').disabled=true;
+	   document.getElementById('wt').disabled=true;
+	    document.getElementById('desc').disabled=true;
+	   document.getElementById('inv1').disabled=true;
+	   document.getElementById('inv2').disabled=true;
+	   document.getElementById('inv3').disabled=true;
+	   document.getElementById('inv4').disabled=true;
+	   document.getElementById('qty').disabled=true;
+	   document.getElementById('date').disabled=true;;
+	   document.getElementById('weight_method').disabled=true;
+	   document.getElementById('lrSubmitButton').disabled=true;
+	   
+	   }
+	  }
+	});
+	}
+  }
+  function LRNOSelf()
+  {
+	  
+
+	  		   document.getElementById('lr_check_notice').style.visibility="hidden";
+
+	   document.getElementById('lrdate').disabled=false;
+	   document.getElementById('vehicle').disabled = false;
+	   document.getElementById('lrfrom').disabled=false;
+	   document.getElementById('lrto').disabled=false;
+	   document.getElementById('lrdistance').disabled=false;
+	   document.getElementById('daysreq').disabled=false;
+	   document.getElementById('consigner').disabled=false;
+	   document.getElementById('consignee').disabled=false;
+	   document.getElementById('packages').disabled=false;
+	   document.getElementById('package_select').disabled=false;
+	   document.getElementById('wt').disabled=false;
+	    document.getElementById('desc').disabled=false;
+	   document.getElementById('inv1').disabled=false;
+	   document.getElementById('inv2').disabled=false;
+	   document.getElementById('inv3').disabled=false;
+	   document.getElementById('inv4').disabled=false;
+	   document.getElementById('qty').disabled=false;
+	   document.getElementById('date').disabled=false;;
+	   document.getElementById('weight_method').disabled=false;
+	   document.getElementById('lrSubmitButton').disabled=false;
+	   }	
   </script>
 </body>
 

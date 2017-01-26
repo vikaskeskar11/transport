@@ -37,7 +37,7 @@
 	if($conn)	//database connection			
 	{	
 		$query ="insert into vehicle values 
-		('','$regno','$model','$company','$tax1','$tax')";
+		('','$regno','$model_list','$vehicle_company','$tax1','$tax')";
 		$result = mysqli_query($conn,$query) or die(mysqli_error($conn));
 		if($result)
 		{
@@ -172,7 +172,7 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message">RTO Tax Amt.</label>
 									<div class="col-md-4">
-									<input  type="text" placeholder="RTO Tax Amt." name="tax1" id="tax1" class="form-control">
+									<input  type="text" value="0" placeholder="RTO Tax Amt." name="tax1" id="tax1" class="form-control">
 									<br><br>
 									</div>	
 								</div>
@@ -181,7 +181,7 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message">RTO Tax Exp. Date</label>
 									<div class="col-md-4">
-									<input  type="date"  name="tax" id="tax" class="form-control">
+									<input  type="date" value="0" name="tax" id="tax" class="form-control">
 									<br><br>
 									</div>	
 								</div>

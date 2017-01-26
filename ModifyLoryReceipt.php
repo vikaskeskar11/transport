@@ -100,7 +100,25 @@ $message1="Please Update any Field ";
 						<div class="form-group">
 									<label class="col-md-1 control-label" for="name">Vehicle </label>
 									<div class="col-md-9">
-									<input  id="vehicle"  name="vehicle"  type="text" placeholder="Vehical"  class="form-control">
+									<?php
+									if($conn){
+										$query = 'select regno from vehicle';
+										$result = mysqli_query($conn,$query);
+										if(mysqli_num_rows($result)>0)
+										{
+									echo '<input required list="vehiclelist" id="vehicle"  name="vehicle"  type="text" placeholder="Vehicle"  class="form-control">';
+									echo '<datalist id = "vehiclelist">';
+									//echo '<option>Please Select Person</option>';
+									while($row = mysqli_fetch_assoc($result))
+									{	
+										echo '<option>'.$row['regno'].'</option>';
+									}
+							
+									echo '</datalist>';
+										}
+									}
+									?>
+									
 									</div>
 									
 									<div class="form-group col-md-2">
@@ -119,16 +137,8 @@ $message1="Please Update any Field ";
 					<h4 class="page-header" style="color:#1F618D  ;">Locations</h4>
 					</div>
 			
-					
-				
-								
-								
 								
 								<div class="col-md-12">
-				
-								
-								
-								
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message">From</label>
 									<div class="col-md-4">
@@ -183,7 +193,7 @@ $message1="Please Update any Field ";
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message">Distance</label>
 									<div class="col-md-4">
-									<input required type="number" placeholder="Distance in Kilo Meters" name="lrdistance" id="lrdistance" class="form-control">
+									<input value="0" type="number" placeholder="Distance in Kilo Meters" name="lrdistance" id="lrdistance" class="form-control">
 									<br>
 									</div>
 									
@@ -191,7 +201,7 @@ $message1="Please Update any Field ";
 								<div class="form-group">
 									<label class="col-md-2 control-label" for="message">Days Required</label>
 									<div class="col-md-4">
-									<input required type="number" placeholder="days Rquired" name="lrdaysreq" id="daysreq" class="form-control">
+									<input value="0" type="number" placeholder="days Rquired" name="lrdaysreq" id="daysreq" class="form-control">
 									<br>
 									</div>	
 								</div>
@@ -207,8 +217,26 @@ $message1="Please Update any Field ";
 					<div class="form-group">
 									<label class="col-md-1 control-label" for="name">Consigner </label>
 									<div class="col-md-9">
-									<input  id="consigner"  name="consigner"  type="text" placeholder="consigner"  class="form-control">
-									</div>
+									<?php
+									if($conn){
+										$query = 'select DISTINCT cname from company';
+										$result = mysqli_query($conn,$query);
+										if(mysqli_num_rows($result)>0)
+										{
+									echo '<input required list="consigneelist" id="consigner"  name="consigner"  type="text" placeholder="Consignee"  class="form-control">';
+									echo '<datalist id = "consigneelist">';
+									//echo '<option>Please Select Person</option>';
+									while($row = mysqli_fetch_assoc($result))
+									{	
+										
+										echo '<option>'.$row['cname'].'</option>';
+										//echo '<option>'.$row['consignname'].'</option>';
+									}
+							
+									echo '</datalist>';
+										}			
+									}?>
+			</div>
 									
 									<div class="form-group col-md-2">
 								<button type="submit" class="btn btn-primary">New</button>
@@ -219,20 +247,32 @@ $message1="Please Update any Field ";
 						<div class="form-group">
 									<label class="col-md-1 control-label" for="name">Consignee </label>
 									<div class="col-md-9">
-									<input  id="consignee"  name="consignee"  type="text" placeholder="consignee"  class="form-control">
-									</div>
+									<?php
+									if($conn){
+										$query = 'select DISTINCT cname from company';
+										$result = mysqli_query($conn,$query);
+										if(mysqli_num_rows($result)>0)
+										{
+									echo '<input required list="consignerlist" id="consignee"  name="consignee"  type="text" placeholder="Consigner"  class="form-control">';
+									echo '<datalist id = "consignerlist">';
+									//echo '<option>Please Select Person</option>';
+									while($row = mysqli_fetch_assoc($result))
+									{	
+										echo '<option>'.$row['cname'].'</option>';
+									//	echo '<option>'.$row['cname'].'</option>';
+									}
+							
+									echo '</datalist>';
+										}								
+									}
+									?>
+								</div>
 									
 									<div class="form-group col-md-2">
 								<button type="submit" class="btn btn-primary">New</button>
 								<br>
 								</div>	
 						</div>
-					
-							   
-					
-							
-					
-					
 					
 					<div class="col-lg-12">
 					<h4 class="page-header" style="color:#1F618D  ;">Packaging</h4>
@@ -264,8 +304,24 @@ $message1="Please Update any Field ";
 						<div class="form-group">
 									<label class="col-md-2 control-label" for="name">Descr. </label>
 									<div class="col-md-10">
-									<input  id="desc"  name="desc"  type="text" placeholder="Descr."  class="form-control">
-									</div>
+								<?php
+									if($conn){
+										$query = 'select DISTINCT ldesc from lorryreceipt';
+										$result = mysqli_query($conn,$query);
+										if(mysqli_num_rows($result)>0)
+										{
+									echo '<input  list="desc_list" id="desc"  name="desc"  type="text" placeholder="Descr."  class="form-control">';
+									echo '<datalist id = "desc_list">';
+									while($row = mysqli_fetch_assoc($result))
+									{	
+										echo '<option>'.$row['ldesc'].'</option>';
+									}
+							
+									echo '</datalist>';
+										}
+									} 	
+									?>
+					</div>
 									
 										
 						</div>

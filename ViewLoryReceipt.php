@@ -267,7 +267,10 @@
 									<div class="col-md-2">
 									<input readonly id="status"  name="status"  type="text"  class="form-control">
 									</div>	
-									
+									<label class="col-md-1 control-label" for="name"> Invoice Number </label>
+									<div class="col-md-1">
+									<input readonly id="invoice_display"  name="invoice_display"  type="text"  class="form-control">
+									</div>	
 									<label class="col-md-1 control-label" for="name" align="center"> DATE </label>
 									<div class="col-md-2">
 									<input  id="date"   name="date"  readonly type="date"   class="form-control">
@@ -352,12 +355,15 @@
 	  if(data[20]==0)
 	  {
 		  document.getElementById("status").value='Unbilled LR';
+		  	  document.getElementById('invoice_display').value=0;
 	  }
 	  else{
 		  
 		  		  document.getElementById("status").value='Billed LR';
+				  	  document.getElementById('invoice_display').value=data[21];
 
 	  }
+
 	   }
 
 	  } 
