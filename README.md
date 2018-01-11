@@ -1,14 +1,15 @@
-Detailed Accidental Report (DAR)
+Transport Management system
 =======
 
-Detailed Accidental Report (DAR) is a Java based Desktop Application project. 
+Transport management system developed web based application to work in shared network.
 
 
 ## Features
-- Adding new DAR report
-- Generating DAR in standard print format
-- Searching a DAR
-- Updating a DAR
+- Adding new Lorry
+- Adding new Driver
+- Adding new Consignee and consigner
+- Generating Lorry receipt
+- Generating Invoice
 - More..
  
 ## Developers
