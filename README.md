@@ -13,7 +13,9 @@ Detailed Accidental Report (DAR) is a Java based Desktop Application project.
  
 ## Developers
   [Sarthak Doshi](https://github.com/sarthakdoshi04)
+  
   [Vikas Keskar](https://github.com/vikaskeskar11)
+  
   [Akshay Shelar](https://github.com/akshayshelar)
   
   
